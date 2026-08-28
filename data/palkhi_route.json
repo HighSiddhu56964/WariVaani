@@ -1,0 +1,144 @@
+{
+  "palkhi_info": {
+    "name": "Sant Dnyaneshwar Maharaj Palkhi",
+    "saint_name": "Sant Dnyaneshwar Maharaj",
+    "source": "GOVERNMENT_REFERENCE"
+  },
+  "checkpoints": [
+    {
+      "sequence": 1,
+      "location_name": "Alandi",
+      "next_checkpoint": "Pune",
+      "latitude": 18.6775,
+      "longitude": 73.8967,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-25T06:00:00Z"
+    },
+    {
+      "sequence": 2,
+      "location_name": "Pune",
+      "next_checkpoint": "Saswad",
+      "latitude": 18.5204,
+      "longitude": 73.8567,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-25T09:00:00Z"
+    },
+    {
+      "sequence": 3,
+      "location_name": "Saswad",
+      "next_checkpoint": "Jejuri",
+      "latitude": 18.3444,
+      "longitude": 74.0305,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "sequence": 4,
+      "location_name": "Jejuri",
+      "next_checkpoint": "Walhe",
+      "latitude": 18.2741,
+      "longitude": 74.1565,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-25T15:00:00Z"
+    },
+    {
+      "sequence": 5,
+      "location_name": "Walhe",
+      "next_checkpoint": "Lonand",
+      "latitude": 18.1793,
+      "longitude": 74.2057,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-25T18:00:00Z"
+    },
+    {
+      "sequence": 6,
+      "location_name": "Lonand",
+      "next_checkpoint": "Tardgaon",
+      "latitude": 18.0416,
+      "longitude": 74.1866,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-25T21:00:00Z"
+    },
+    {
+      "sequence": 7,
+      "location_name": "Tardgaon",
+      "next_checkpoint": "Phaltan",
+      "latitude": 17.9944,
+      "longitude": 74.2411,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T00:00:00Z"
+    },
+    {
+      "sequence": 8,
+      "location_name": "Phaltan",
+      "next_checkpoint": "Barad",
+      "latitude": 17.9866,
+      "longitude": 74.4300,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T03:00:00Z"
+    },
+    {
+      "sequence": 9,
+      "location_name": "Barad",
+      "next_checkpoint": "Natepute",
+      "latitude": 17.9264,
+      "longitude": 74.5511,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T06:00:00Z"
+    },
+    {
+      "sequence": 10,
+      "location_name": "Natepute",
+      "next_checkpoint": "Malshiras",
+      "latitude": 17.8967,
+      "longitude": 74.7570,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T09:00:00Z"
+    },
+    {
+      "sequence": 11,
+      "location_name": "Malshiras",
+      "next_checkpoint": "Velapur",
+      "latitude": 17.8344,
+      "longitude": 74.8021,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T12:00:00Z"
+    },
+    {
+      "sequence": 12,
+      "location_name": "Velapur",
+      "next_checkpoint": "Bhandishegaon",
+      "latitude": 17.7850,
+      "longitude": 75.0210,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T15:00:00Z"
+    },
+    {
+      "sequence": 13,
+      "location_name": "Bhandishegaon",
+      "next_checkpoint": "Vakhri",
+      "latitude": 17.7310,
+      "longitude": 75.1840,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T18:00:00Z"
+    },
+    {
+      "sequence": 14,
+      "location_name": "Vakhri",
+      "next_checkpoint": "Pandharpur",
+      "latitude": 17.6980,
+      "longitude": 75.2850,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-26T21:00:00Z"
+    },
+    {
+      "sequence": 15,
+      "location_name": "Pandharpur",
+      "next_checkpoint": null,
+      "latitude": 17.6773,
+      "longitude": 75.3239,
+      "data_type": "SIMULATED",
+      "recorded_at": "2026-08-27T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Alandi Temple Medical Aid Camp",
+    "type": "MEDICAL_CAMP",
+    "latitude": 18.6780,
+    "longitude": 73.8972,
+    "landmark": "Near Indrayani Ghat Gate 2",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": "https://warivaani.maharashtra.gov.in/demo/facilities/101",
+    "verified_at": "2026-08-25T08:00:00Z"
+  },
+  {
+    "name": "Indrayani River Clean Drinking Water Station",
+    "type": "WATER_STATION",
+    "latitude": 18.6769,
+    "longitude": 73.8955,
+    "landmark": "Opposite Sant Dnyaneshwar Temple",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T08:30:00Z"
+  },
+  {
+    "name": "Alandi Annachhatra Food Distribution",
+    "type": "FOOD_STATION",
+    "latitude": 18.6792,
+    "longitude": 73.8980,
+    "landmark": "Main Palkhi Prasthan Marg",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T07:00:00Z"
+  },
+  {
+    "name": "Pune Swargate Emergency Medical & First Aid",
+    "type": "MEDICAL_CAMP",
+    "latitude": 18.5018,
+    "longitude": 73.8580,
+    "landmark": "Near Swargate Bus Stand Exit 1",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T09:00:00Z"
+  },
+  {
+    "name": "Pune Police Help Desk & Lost Child Station",
+    "type": "POLICE_HELP_DESK",
+    "latitude": 18.5204,
+    "longitude": 73.8567,
+    "landmark": "Shaniwar Wada Chowk",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T09:30:00Z"
+  },
+  {
+    "name": "Saswad Dive Ghat Medical Emergency Unit",
+    "type": "MEDICAL_CAMP",
+    "latitude": 18.3550,
+    "longitude": 74.0210,
+    "landmark": "Dive Ghat Base Rest Area",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T11:00:00Z"
+  },
+  {
+    "name": "Saswad Warkari Night Shelter & Sanitation Tents",
+    "type": "SHELTER",
+    "latitude": 18.3440,
+    "longitude": 74.0312,
+    "landmark": "Sangameshwar Temple Ground",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T12:00:00Z"
+  },
+  {
+    "name": "Jejuri Khandoba Mandir Water Point",
+    "type": "WATER_STATION",
+    "latitude": 18.2745,
+    "longitude": 74.1570,
+    "landmark": "Jejuri Fort Steps Base",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T14:00:00Z"
+  },
+  {
+    "name": "Lonand Highway Mobile Health Clinic",
+    "type": "MEDICAL_CAMP",
+    "latitude": 18.0420,
+    "longitude": 74.1870,
+    "landmark": "Lonand Nira River Bridge Checkpoint",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T16:00:00Z"
+  },
+  {
+    "name": "Phaltan Grain Merchants Warkari Annachhatra",
+    "type": "FOOD_STATION",
+    "latitude": 17.9870,
+    "longitude": 74.4310,
+    "landmark": "Phaltan APMC Market Yard Ground",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T17:30:00Z"
+  },
+  {
+    "name": "Malshiras Mobile Ambulance & Ambulance Base",
+    "type": "MEDICAL_CAMP",
+    "latitude": 17.8350,
+    "longitude": 74.8025,
+    "landmark": "Malshiras Tehsildar Office Square",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T18:00:00Z"
+  },
+  {
+    "name": "Pandharpur Vitthal Temple Main Medical Center",
+    "type": "MEDICAL_CAMP",
+    "latitude": 17.6775,
+    "longitude": 75.3245,
+    "landmark": "Near Vitthal Mandir East Gate (Namdev Payari)",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": "https://warivaani.maharashtra.gov.in/demo/facilities/501",
+    "verified_at": "2026-08-25T19:00:00Z"
+  },
+  {
+    "name": "Chandrabhaga Riverbank Water & Assistance Booth",
+    "type": "WATER_STATION",
+    "latitude": 17.6750,
+    "longitude": 75.3260,
+    "landmark": "Chandrabhaga Snan Ghat No. 3",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T19:15:00Z"
+  },
+  {
+    "name": "Pandharpur Central Lost & Found / Police Control Room",
+    "type": "POLICE_HELP_DESK",
+    "latitude": 17.6780,
+    "longitude": 75.3230,
+    "landmark": "Shivaji Chowk Police Control Center",
+    "status": "ACTIVE",
+    "source": "DEMO_DATA",
+    "source_url": null,
+    "verified_at": "2026-08-25T19:30:00Z"
+  }
+]

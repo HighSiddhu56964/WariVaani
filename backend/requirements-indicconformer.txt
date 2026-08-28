@@ -1,0 +1,3 @@
+# AI4Bharat's model card requires its nemo-v2 fork. Install this on Linux/WSL;
+# the fork itself documents WSL as the supported Windows route.
+nemo_toolkit[asr] @ git+https://github.com/AI4Bharat/NeMo.git@nemo-v2
