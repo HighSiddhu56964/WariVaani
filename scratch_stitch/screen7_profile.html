@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Profile - Devotional Modernism</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f8efeb",
+                    "surface-tint": "#7a573d",
+                    "secondary-container": "#ffbc6c",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdea4",
+                    "tertiary": "#4e3700",
+                    "background": "#fff8f5",
+                    "inverse-primary": "#ebbd9d",
+                    "outline": "#82746c",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b19",
+                    "primary-container": "#6b4a31",
+                    "secondary": "#855308",
+                    "secondary-fixed": "#ffddb9",
+                    "outline-variant": "#d4c3ba",
+                    "surface-bright": "#fff8f5",
+                    "on-tertiary-fixed": "#261900",
+                    "tertiary-fixed-dim": "#e8c176",
+                    "on-secondary-container": "#784a00",
+                    "on-background": "#1f1b19",
+                    "primary-fixed": "#ffdcc4",
+                    "surface-container": "#f5ece8",
+                    "secondary-fixed-dim": "#fcba69",
+                    "on-primary-fixed": "#2d1603",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fff8f5",
+                    "on-tertiary-container": "#e7bf75",
+                    "primary-fixed-dim": "#ebbd9d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e9e1dd",
+                    "on-surface-variant": "#50453d",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#2b1700",
+                    "on-tertiary-fixed-variant": "#5d4200",
+                    "on-primary-container": "#e9bb9b",
+                    "tertiary-container": "#694d0b",
+                    "on-primary-fixed-variant": "#5f4028",
+                    "surface-container-low": "#fbf2ee",
+                    "inverse-surface": "#34302d",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#efe6e2",
+                    "on-secondary-fixed-variant": "#663e00",
+                    "surface-dim": "#e1d8d4",
+                    "primary": "#51341c",
+                    "surface-variant": "#e9e1dd",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "unit": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #FBF3E7; /* Base parchment */
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+        }
+        .surface-card {
+            background-color: #F5E9D6;
+            border: 1px solid rgba(201, 164, 92, 0.3); /* Temple Gold 30% */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased min-h-screen relative pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md docked full-width top-0 border-b border-outline-variant/30 flat no shadows flex justify-between items-center px-margin-mobile h-16 w-full max-w-full fixed z-40 md:hidden">
+<button class="text-primary dark:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95 duration-150 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-headline-md text-headline-md text-secondary dark:text-secondary-fixed-dim tracking-tight">जय हरी विठ्ठल</h1>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User profile photo" class="object-cover w-full h-full" data-alt="A small, circular profile picture of a young man with a warm smile, wearing a traditional white kurta, set against a bright, warm, saffron-tinted background, fitting the Devotional Modernism style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3guUXxZHRQaYaVgQDmsGJO7NA5c184TWqzMwx3w2a-CEXea4xKEib1lF91GhJn8jjDrZ1VdsVVJITRVUNzhp8-ipG6UIH6pQzfCQ7-R8KXCEHwTiohDa3kqW4EiclN_mKHBTac1a9sA6usbXMAhwks3wh6cv5ZIeVutp77MTR_YYlHeL6m-sgTNbcAA9m647-AdvNg-mnpDMXQ31MIKUD1G_X27CfyjQJFrDCq91CE-PLjxLfYX_Jtg">
+</div>
+</header>
+<!-- Desktop Sidebar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-surface/90 border-r border-outline-variant/20 pt-8 px-4 z-40">
+<h1 class="font-headline-md text-headline-md text-secondary mb-8 px-4">जय हरी विठ्ठल</h1>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg text-label-lg">मुखपृष्ठ</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">directions_walk</span>
+<span class="font-label-lg text-label-lg">वारी</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">mic</span>
+<span class="font-label-lg text-label-lg">वाणी</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-lg text-label-lg">अपडेट्स</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-high text-primary font-bold" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg text-primary">प्रोफाईल</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-20 md:pt-8 px-margin-mobile md:ml-64 max-w-3xl mx-auto flex flex-col gap-lg">
+<!-- Header -->
+<div class="py-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">🙏 नमस्कार, गणेश</h2>
+</div>
+<!-- Profile Info Card -->
+<section class="surface-card rounded-xl p-md flex items-center gap-md relative overflow-hidden">
+<!-- Decorative Motif -->
+<span class="material-symbols-outlined absolute top-2 right-2 text-secondary/10 text-4xl transform rotate-12">local_florist</span>
+<div class="w-20 h-20 rounded-full overflow-hidden border-2 border-secondary/30 shrink-0">
+<img alt="Ganesh Profile" class="object-cover w-full h-full" data-alt="A portrait of a serene young man with a warm smile, wearing a traditional white kurta, set against a bright, warm, saffron-tinted background, fitting the Devotional Modernism style, capturing a sense of calm reverence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClJeBPBRMvu21awF_SVAFhJ2DbVCt_-ZIjCSa4ssF8mQ1r1mBVefRy-0eCLJX_8x9Sx1pir-fzduP8TdUW2pCIgs7a8Nx5Kt4jAJs-WdoBTWAR_4_e_dmFWTbxDj5M0DfRsYea1TWpDXRoLMmpIb-snY1aFeXcrciJUIYPB6rjApSx5iCCu5fAwd-tS3JTcFRiFFIplLpYLN3vuKKs1lx-EPhrX6HRuIAjBQ9bdYgS9p1fxU_caruqNg">
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary">गणेश पाटील</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">दिंडी क्र: ४५ • आळंदी ते पंढरपूर</p>
+<div class="mt-2 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full font-label-sm text-label-sm inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                        नोंदणीकृत वारकरी
+                    </span>
+</div>
+</div>
+</section>
+<!-- List Group -->
+<section class="flex flex-col gap-xs mt-4">
+<!-- Item 1 -->
+<button class="surface-card rounded-lg p-md flex items-center justify-between w-full hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">badge</span>
+</div>
+<span class="font-body-lg text-body-lg text-primary">माझी माहिती</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Item 2 -->
+<button class="surface-card rounded-lg p-md flex items-center justify-between w-full hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">emergency</span>
+</div>
+<span class="font-body-lg text-body-lg text-primary">आपत्कालीन संपर्क</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Item 3 -->
+<button class="surface-card rounded-lg p-md flex items-center justify-between w-full hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="font-body-lg text-body-lg text-primary">कुटुंबीय जोडणी</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Item 4 -->
+<button class="surface-card rounded-lg p-md flex items-center justify-between w-full hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">language</span>
+</div>
+<span class="font-body-lg text-body-lg text-primary">भाषा</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Item 5 -->
+<button class="surface-card rounded-lg p-md flex items-center justify-between w-full hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<span class="font-body-lg text-body-lg text-primary">मदत व सुरक्षा</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Item 6 -->
+<button class="surface-card rounded-lg p-md flex items-center justify-between w-full hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<span class="font-body-lg text-body-lg text-primary">सेटिंग्ज</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</section>
+<!-- Logout Button -->
+<div class="mt-8 mb-12 flex justify-center">
+<button class="px-6 py-3 border border-outline text-error font-label-lg text-label-lg rounded-full flex items-center gap-2 hover:bg-error-container/20 transition-colors">
+<span class="material-symbols-outlined">logout</span>
+                बाहेर पडा
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-lg font-label-sm text-label-sm docked full-width bottom-0 rounded-t-xl border-t border-outline-variant/20 shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-2 pb-4 h-20 [&amp;&gt;button:nth-child(3)]:bg-gradient-to-br [&amp;&gt;button:nth-child(3)]:from-secondary [&amp;&gt;button:nth-child(3)]:to-surface-tint [&amp;&gt;button:nth-child(3)]:rounded-full [&amp;&gt;button:nth-child(3)]:-translate-y-6 [&amp;&gt;button:nth-child(3)]:w-16 [&amp;&gt;button:nth-child(3)]:h-16 [&amp;&gt;button:nth-child(3)]:shadow-[0px_10px_30px_rgba(217,155,78,0.2)] [&amp;&gt;button:nth-child(3)]:text-white">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="">मुखपृष्ठ</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1" data-icon="directions_walk">directions_walk</span>
+<span class="">वारी</span>
+</button>
+<!-- Vaani Core Button -->
+<button class="flex flex-col items-center justify-center hover:text-primary transition-all"><span class="material-symbols-outlined text-3xl" data-icon="mic" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">mic</span><span class="text-label-sm">वाणी</span></button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1" data-icon="notifications">notifications</span>
+<span class="">अपडेट्स</span>
+</button>
+<!-- Active State -->
+<button class="flex flex-col items-center justify-center text-secondary font-bold hover:text-primary transition-all w-16"><span class="material-symbols-outlined mb-1" data-icon="person" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">person</span><span class="font-bold">प्रोफाईल</span></button>
+</nav>
+
+
+</body></html>

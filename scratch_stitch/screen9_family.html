@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="mr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>माझे वारकरी</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f8efeb",
+                        "surface-tint": "#7a573d",
+                        "secondary-container": "#ffbc6c",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdea4",
+                        "tertiary": "#4e3700",
+                        "background": "#fff8f5",
+                        "inverse-primary": "#ebbd9d",
+                        "outline": "#82746c",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1f1b19",
+                        "primary-container": "#6b4a31",
+                        "secondary": "#855308",
+                        "secondary-fixed": "#ffddb9",
+                        "outline-variant": "#d4c3ba",
+                        "surface-bright": "#fff8f5",
+                        "on-tertiary-fixed": "#261900",
+                        "tertiary-fixed-dim": "#e8c176",
+                        "on-secondary-container": "#784a00",
+                        "on-background": "#1f1b19",
+                        "primary-fixed": "#ffdcc4",
+                        "surface-container": "#f5ece8",
+                        "secondary-fixed-dim": "#fcba69",
+                        "on-primary-fixed": "#2d1603",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fff8f5",
+                        "on-tertiary-container": "#e7bf75",
+                        "primary-fixed-dim": "#ebbd9d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e9e1dd",
+                        "on-surface-variant": "#50453d",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#2b1700",
+                        "on-tertiary-fixed-variant": "#5d4200",
+                        "on-primary-container": "#e9bb9b",
+                        "tertiary-container": "#694d0b",
+                        "on-primary-fixed-variant": "#5f4028",
+                        "surface-container-low": "#fbf2ee",
+                        "inverse-surface": "#34302d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#efe6e2",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "surface-dim": "#e1d8d4",
+                        "primary": "#51341c",
+                        "surface-variant": "#e9e1dd",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF3E7;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+        .devotional-card {
+            background-color: #F5E9D6;
+            border: 1px solid rgba(201, 164, 92, 0.3);
+        }
+        .text-saffron { color: #D99B4E; }
+        .bg-saffron { background-color: #D99B4E; }
+        .border-saffron { border-color: #D99B4E; }
+        
+        /* Interactive States */
+        .interactive-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .interactive-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen text-on-background pb-32">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md font-headline-sm text-headline-sm text-primary dark:text-primary-fixed docked full-width top-0 border-b border-outline-variant/30 flat no shadows flex justify-between items-center px-margin-mobile h-16 w-full max-w-full sticky z-40">
+<button class="material-symbols-outlined text-primary p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-150">menu</button>
+<span class="font-headline-md text-headline-md text-secondary dark:text-secondary-fixed-dim">जय हरी विठ्ठल</span>
+<button class="w-8 h-8 rounded-full overflow-hidden hover:bg-surface-container-high transition-colors active:scale-95 duration-150 ring-2 ring-primary-container">
+<img class="w-full h-full object-cover" data-alt="A small circular profile picture of an Indian man wearing a traditional white topi and a soft smile, soft warm lighting, minimalist background in earth tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXVoV0r1FiXC-gpYfa7hgmAIuVfxAahSlaPkmy3u66lpEALW8zGxzYA6ZQUtFLIvyc-pkXZF_hDTntTY4hpXxoBM7H-owjTO3bokJCp3Duj5yrkluiG3-vJ9ZJ4P9Mh8EW7P4FputuRfgpyhA4KXiMIt1sApYY0hiz05RGN1FZJErMXwzbFDPzrhAHz_wrIXz0nGJHTJQCW9yisT2Q_S1TPnktK6rncLZpaiu-Px68OlnmyBslNfYxOw"/>
+</button>
+</header>
+<main class="px-margin-mobile pt-lg max-w-2xl mx-auto space-y-lg">
+<!-- Header -->
+<div class="flex items-center justify-between">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">माझे वारकरी</h1>
+</div>
+<!-- STATE 1: Connected Warkaris (Bento Layout) -->
+<section class="space-y-md">
+<h2 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">जोडलेले (Connected)</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Connected Card 1 -->
+<div class="devotional-card rounded-xl p-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-saffron">
+<img class="w-full h-full object-cover" data-alt="Portrait of an elderly Indian woman with a warm, weathered face, wearing a traditional saree, soft natural light, shallow depth of field, earthy color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOcSj3YJ0LU6UJ2fCObyF6lIf_-sTEIRID24Mo7XJG7bBd4kTUqTHwKyeBgtdR2Vg_o6ByHStDanynQQLpQ4AKZmhBejncLVjgb1alZzoFgnAsYTp07VUt0VJNnXGy2wibfgXcDjwl4RlYw_Hn7SpaGBsV3_ubw7K8amYgAbZJcw-ZQ-XT7D_a-ki95xHrBr7ygnB5kY8huTq_2NIA3klPtaAX2JeVkdgZX_lgBU-azF0lZf-fMJPc6g"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-primary">आई</h3>
+<div class="flex items-center gap-1 mt-1 text-saffron">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">directions_walk</span>
+<span class="font-label-sm text-label-sm">वारीत आहेत</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">शेवटचे लोकेशन</span>
+<span class="font-body-md text-body-md text-on-surface truncate">आळंदी</span>
+</div>
+<button class="interactive-btn bg-saffron text-white font-label-lg text-label-lg px-4 py-2 rounded-full flex items-center gap-2 shadow-[0px_4px_10px_rgba(217,155,78,0.3)]">
+                            वारीची माहिती पहा
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<div class="h-px bg-outline-variant/30 w-full my-lg"></div>
+<!-- STATE 2: Empty State & Add Flow -->
+<section class="space-y-md" id="add-warkari-section">
+<!-- Empty State Illustration -->
+<div class="devotional-card rounded-xl p-lg flex flex-col items-center text-center space-y-4" id="empty-state-view">
+<div class="w-48 h-48 relative mb-4">
+<img class="w-full h-full object-contain" data-alt="A minimalist flat illustration in warm earth tones showing two abstract figures connected by a dashed walking path, with small traditional motifs like a tulsi leaf and a saffron flag. The style is clean, modern, and reverent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIFnmVb3YBaN4wtEKKl9e4Gq-Z8ezkdfzyJpcVUMDdxymb_finqNqUX7NPUlTlM-r4h3fU4iSo-Hhf-EsMtVAyB4zhIoOxNcavavFGUUow4mVgG8vIFOOfk7XhrOoYcqutoEZQBccFb7mjQErmMEwW4C4098WhKix5LIpu4L9x__s6AcAs2UkxY7fWwrGBgq_1HNM2tvFgjLc4KFItJP81e5fX_2fjx_wAhZTO2BetvcLgeXVjUPrUgg"/>
+</div>
+<p class="font-body-lg text-body-lg text-primary">अजून कोणाशी जोडलेले नाही.</p>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">तुमच्या कुटुंबातील किंवा मित्रांमधील वारकऱ्यांना जोडा आणि त्यांच्या वारीवर लक्ष ठेवा.</p>
+<button class="interactive-btn mt-6 border border-saffron text-primary font-label-lg text-label-lg px-6 py-3 rounded-full flex items-center gap-2 hover:bg-saffron/10 transition-colors" onclick="toggleAddFlow()">
+<span class="material-symbols-outlined">person_add</span>
+                    वारकरी जोडा
+                </button>
+</div>
+<!-- Inline Expansion: Add Flow (Hidden by default) -->
+<div class="devotional-card rounded-xl p-md hidden opacity-0 transition-opacity duration-300" id="add-flow-view">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-sm text-headline-sm text-primary">नवीन वारकरी जोडा</h3>
+<button class="text-on-surface-variant hover:text-primary" onclick="toggleAddFlow()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-6">
+<!-- Question -->
+<div>
+<p class="font-body-md text-body-md text-on-surface mb-3">वारकऱ्याचा मोबाईल नंबर आहे का?</p>
+<div class="flex gap-4">
+<button class="interactive-btn flex-1 py-2 px-4 rounded-lg border border-outline-variant text-on-surface-variant font-label-lg text-label-lg transition-colors" id="btn-yes" onclick="showFields(true)">होय (Yes)</button>
+<button class="interactive-btn flex-1 py-2 px-4 rounded-lg border border-outline-variant text-on-surface-variant font-label-lg text-label-lg transition-colors" id="btn-no" onclick="showFields(false)">नाही (No)</button>
+</div>
+</div>
+<!-- Dynamic Fields -->
+<div class="hidden space-y-4 pt-4 border-t border-outline-variant/30" id="dynamic-fields">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">नाव (Name)</label>
+<input class="w-full bg-transparent border-b border-outline focus:border-saffron focus:ring-0 px-0 py-2 font-body-md text-primary" placeholder="वारकऱ्याचे नाव" type="text"/>
+</div>
+<div id="mobile-field-container">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">मोबाईल नंबर (Mobile)</label>
+<input class="w-full bg-transparent border-b border-outline focus:border-saffron focus:ring-0 px-0 py-2 font-body-md text-primary" placeholder="+91" type="tel"/>
+</div>
+<div class="pt-4">
+<button class="interactive-btn w-full bg-saffron text-white font-label-lg text-label-lg py-3 rounded-xl shadow-[0px_4px_10px_rgba(217,155,78,0.3)]">
+                                जोडा
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Semantic Match: प्रोफाइल / Profile as it relates to connected accounts/people) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-2 pb-4 h-20 bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-lg text-secondary dark:text-secondary-fixed font-label-sm text-label-sm docked full-width bottom-0 rounded-t-xl border-t border-outline-variant/20 shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1">home</span>
+<span>मुखपृष्ठ</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1">directions_walk</span>
+<span>वारी</span>
+</button>
+<!-- Vaani Core Button -->
+<button class="bg-gradient-to-br from-secondary to-surface-tint rounded-full -translate-y-6 w-16 h-16 shadow-[0px_10px_30px_rgba(217,155,78,0.2)] text-white flex flex-col items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1">notifications</span>
+<span>अपडेट्स</span>
+</button>
+<!-- Active Tab: Profile (closest semantic match for 'My Warkaris' / Connections) -->
+<button class="flex flex-col items-center justify-center text-secondary font-bold hover:text-primary transition-all">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">person</span>
+<span>प्रोफाईल</span>
+</button>
+</nav>
+<script>
+        function toggleAddFlow() {
+            const emptyState = document.getElementById('empty-state-view');
+            const addFlow = document.getElementById('add-flow-view');
+            
+            if (addFlow.classList.contains('hidden')) {
+                emptyState.classList.add('hidden');
+                addFlow.classList.remove('hidden');
+                // Small delay for smooth opacity transition
+                setTimeout(() => {
+                    addFlow.classList.remove('opacity-0');
+                    addFlow.classList.add('opacity-100');
+                }, 10);
+            } else {
+                addFlow.classList.add('opacity-0');
+                addFlow.classList.remove('opacity-100');
+                setTimeout(() => {
+                    addFlow.classList.add('hidden');
+                    emptyState.classList.remove('hidden');
+                    resetForm();
+                }, 300);
+            }
+        }
+
+        function showFields(hasMobile) {
+            const dynamicFields = document.getElementById('dynamic-fields');
+            const mobileContainer = document.getElementById('mobile-field-container');
+            const btnYes = document.getElementById('btn-yes');
+            const btnNo = document.getElementById('btn-no');
+
+            dynamicFields.classList.remove('hidden');
+            
+            // Update button styles
+            btnYes.className = `interactive-btn flex-1 py-2 px-4 rounded-lg font-label-lg text-label-lg transition-colors ${hasMobile ? 'bg-primary-container text-on-primary-container border-transparent' : 'border border-outline-variant text-on-surface-variant'}`;
+            btnNo.className = `interactive-btn flex-1 py-2 px-4 rounded-lg font-label-lg text-label-lg transition-colors ${!hasMobile ? 'bg-primary-container text-on-primary-container border-transparent' : 'border border-outline-variant text-on-surface-variant'}`;
+
+            if (hasMobile) {
+                mobileContainer.classList.remove('hidden');
+            } else {
+                mobileContainer.classList.add('hidden');
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('dynamic-fields').classList.add('hidden');
+            document.getElementById('btn-yes').className = 'interactive-btn flex-1 py-2 px-4 rounded-lg border border-outline-variant text-on-surface-variant font-label-lg text-label-lg transition-colors';
+            document.getElementById('btn-no').className = 'interactive-btn flex-1 py-2 px-4 rounded-lg border border-outline-variant text-on-surface-variant font-label-lg text-label-lg transition-colors';
+        }
+    </script>
+</body></html>

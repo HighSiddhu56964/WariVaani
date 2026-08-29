@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="mr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WariVaani - Loading</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-fonts">
+    @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Mukta', sans-serif;
+    }
+  </style>
+<style data-purpose="custom-styles">
+    /* Background Image specific to the loading screen */
+    .bg-wari-theme {
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCrXAfBfonAWRAIHdwxzIQPE5UHsnz6kzE77Jh1_PQBvioBv7dCl0CkM1Jvpf_rHAJy0o46H3QKFtRDVV1Yp9grDjH2UL03GHaBcF8kcYwUwsCiRHfffXqQ5pBiijT7zzaCpbapeotjjHuuWs7gK7iGKCqJhRIkTfSpLWgAA0pQBwMYLtwthmiUml4reVRaW9O6euYb8R4vFiAEJmEN7VuwZ5nhhOtpSI3ligBmkR6QiYhWe_HOHQgV5ULj0OBGwBmmA5c');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* Simple CSS Spinner */
+    .loader {
+      border: 3px solid rgba(255, 165, 0, 0.3);
+      border-top: 3px solid #ff9900;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Gradient overlay for better text readability at the bottom */
+    .bottom-gradient {
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    }
+  </style>
+</head>
+<body class="bg-amber-50 h-screen w-screen overflow-hidden flex flex-col items-center justify-center relative bg-wari-theme">
+<!-- BEGIN: MainContentWrapper -->
+<main class="w-full h-full flex flex-col relative z-10">
+<!-- Top Text -->
+<!-- BEGIN: TopMantra -->
+<div class="pt-12 text-center text-amber-900 font-semibold text-lg tracking-wider w-full absolute top-0 left-0">
+      || राम कृष्ण हरी ||
+    </div>
+<!-- END: TopMantra -->
+<!-- Center Content (Logo & Slogan) -->
+<!-- BEGIN: CenterContent -->
+<div class="flex-1 flex flex-col items-center justify-center px-6 mt-16 mb-48">
+<!-- Slogan -->
+<div class="mt-8 text-center opacity-0">
+<!-- Hidden for layout purposes since the background image handles the complex logo/text for this specific view -->
+<h1 class="text-3xl font-bold text-gray-900 mb-2">वारीवाणी</h1>
+<p class="text-amber-600 tracking-[0.2em] text-sm font-semibold mb-4">W A R I V A A N I</p>
+<p class="text-xl text-gray-800 font-medium">वारीच्या वाटेवर,</p>
+<p class="text-xl text-gray-800 font-medium">वारीवाणी तुमच्या सोबती.</p>
+</div>
+</div>
+<!-- END: CenterContent -->
+<!-- Loading Section -->
+<!-- BEGIN: LoadingIndicator -->
+<div class="absolute bottom-64 left-0 w-full flex flex-col items-center justify-center">
+<div class="loader mb-3 shadow-[0_0_15px_rgba(255,165,0,0.5)]"></div>
+<p class="text-amber-900 text-sm font-medium">वारीची वाट खुलत आहे...</p>
+</div>
+<!-- END: LoadingIndicator -->
+<!-- Bottom Footer (Mantra) -->
+<!-- BEGIN: BottomFooter -->
+<div class="absolute bottom-0 left-0 w-full text-center pb-6 pt-12 text-white font-semibold text-xl tracking-wider z-20 flex justify-center items-center gap-3">
+<!-- Leaves are part of the image, just adding the text as accessibility fallback or overlay if needed, though hidden to rely on image -->
+<span class="sr-only">|| जय हरी विठ्ठल ||</span>
+</div>
+<!-- END: BottomFooter -->
+</main>
+<!-- END: MainContentWrapper -->
+</body></html>

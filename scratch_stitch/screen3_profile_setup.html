@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="mr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>WariVaani - Profile Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&amp;family=Mukta:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#261900",
+                        "tertiary-container": "#694d0b",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#3e2723",
+                        "tertiary": "#4e3700",
+                        "surface-container-high": "#efe6e2",
+                        "inverse-surface": "#34302d",
+                        "on-error": "#ffffff",
+                        "primary-container": "#6b4a31",
+                        "background": "#FBF3E7",
+                        "on-secondary-fixed": "#2b1700",
+                        "tertiary-fixed-dim": "#e8c176",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#e9bb9b",
+                        "on-primary-fixed-variant": "#5f4028",
+                        "inverse-primary": "#ebbd9d",
+                        "surface": "#fff8f5",
+                        "outline-variant": "#d4c3ba",
+                        "on-secondary-container": "#784a00",
+                        "inverse-on-surface": "#f8efeb",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "outline": "#82746c",
+                        "secondary-fixed": "#ffddb9",
+                        "primary-fixed-dim": "#ebbd9d",
+                        "on-tertiary-container": "#e7bf75",
+                        "error-container": "#ffdad6",
+                        "primary": "#3e2723",
+                        "on-background": "#3e2723",
+                        "surface-variant": "#e9e1dd",
+                        "surface-container-low": "#fbf2ee",
+                        "on-surface-variant": "#5c1607",
+                        "tertiary-fixed": "#ffdea4",
+                        "surface-tint": "#7a573d",
+                        "secondary-fixed-dim": "#fcba69",
+                        "on-tertiary-fixed-variant": "#5d4200",
+                        "on-primary-fixed": "#2d1603",
+                        "surface-bright": "#fff8f5",
+                        "error": "#ba1a1a",
+                        "surface-container": "#F5E9D6",
+                        "secondary": "#D99B4E",
+                        "surface-dim": "#e1d8d4",
+                        "surface-container-highest": "#e9e1dd",
+                        "secondary-container": "#ffbc6c",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdcc4",
+                        'wari-gold': '#d4af37',
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        'marathi': ['"Tiro Devanagari Marathi"', 'serif'],
+                        'sans': ['Mukta', 'sans-serif'],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>body {
+    background-color: #FBF3E7;
+    /* Ivory parchment */
+    color: #3e2723;
+    /* Earth Brown */
+    background-image: url(https://www.transparenttextures.com/patterns/cream-paper.png);
+    background-size: auto;
+    background-position: center;
+    background-attachment: fixed;
+    }
+.card-surface {
+    background-color: #F5E9D6;
+    border: 1px solid rgba(201, 164, 92, 0.3)
+    }
+.btn-primary {
+    background-color: #D99B4E;
+    color: #fff;
+    min-height: 56px;
+    }
+.btn-primary:hover {
+    background-color: #c08740
+    }
+.expandable-section {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: 0
+    }
+.expandable-section.expanded {
+    max-height: 1500px;
+    opacity: 1
+    }
+/* Custom radio button styling */
+input[type="radio"]:checked + div {
+    border-color: #D99B4E;
+    box-shadow: 0 0 15px rgba(217, 155, 78, 0.3);
+    }
+input[type="text"], input[type="tel"], select {
+    min-height: 48px;
+    font-size: 16px;
+}
+.glass-overlay {
+      background: linear-gradient(to bottom, rgba(251,243,231,0.8) 0%, rgba(251,243,231,0.9) 100%);
+}
+.bg-vitthal {
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCYoOe9_KxbPIU1wVtOyGoXgTwo73HavHS08EOfz3XCfEZtQJWnKhjpTMG2IGVO8DagL29uezRwatdvlg9L4-qK7n9s2os0rEVXvZH8DcjdxQhkuje2j4OCGyYPRxq2AkpFeHQ9AvqHaricocdGL--zrLbEdPlJTfkZzE5ckOxWmWc-amZnDeWaDhn2V0bEsYzivXyS7HtkMzBTHD73EscW7nCpdEHH3burxSi7cFFEIgoDEwthBGTt2PQ7nZTwt18ng5o');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans antialiased relative selection:bg-secondary-container selection:text-on-secondary-container bg-vitthal" data-alt="A warm ivory parchment background texture. Subtle, elegant line art of Lord Vitthal and delicate temple arch motifs are faintly visible in the background, creating a devotional and reverent atmosphere. The overall tone is calm, traditional, and deeply rooted in Indian spiritual aesthetics.">
+<div class="absolute inset-0 glass-overlay z-0 pointer-events-none"></div>
+<!-- Decorative Top Arch -->
+<div class="absolute top-0 w-full h-32 pointer-events-none opacity-30 z-0" data-alt="A subtle, decorative border featuring traditional Indian temple arches and delicate floral motifs, rendered in a faint, earthy tone. It serves as a gentle frame at the top of the screen, enhancing the devotional modern aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3A6Bj6GBeob_pNbM3lddhgB67rDRnb5eEcc4rDy4wgpoDOaSWhV7GSHUJZJfstOm_rVH9TjvuqnJ_zqbsG3JUv9RVxe6Udti_WfRwoN5W2snbBXuVsta9W1wmjZ023et1X0LOzdQE1u2C2nvxQ8JVGc1lt5OHWcspKQEal_BhE1-Nokjvq3yUSXzMw1qmsVMTQHI7QzXicwrOkHZi1zHFyYx3O9kn2PJEo5oow3fZKX66vjbZdXFyHg'); background-size: contain; background-repeat: repeat-x; background-position: top center;"></div>
+<div class="relative z-10 max-w-md mx-auto px-margin-mobile py-xl md:py-margin-desktop min-h-screen flex flex-col">
+<!-- Header -->
+<header class="text-center mb-10 pt-4 flex flex-col items-center">
+<h1 class="text-primary text-2xl md:text-3xl font-marathi tracking-wider mb-2 drop-shadow-sm font-semibold">॥ राम कृष्ण हरी ॥</h1>
+<!-- Decorative divider -->
+<div class="flex items-center justify-center space-x-2 my-2 w-48">
+<div class="h-px bg-wari-gold flex-grow"></div>
+<div class="w-2 h-2 rounded-full bg-wari-gold"></div>
+<div class="w-3 h-3 rounded-full bg-wari-gold transform rotate-45"></div>
+<div class="w-2 h-2 rounded-full bg-wari-gold"></div>
+<div class="h-px bg-wari-gold flex-grow"></div>
+</div>
+<p class="font-sans text-xl text-primary mt-2">तुमचे स्वागत आहे</p>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col gap-lg">
+<!-- Connection Question -->
+<section class="text-center">
+<h2 class="font-sans text-2xl font-bold text-primary mb-1">तुम्ही वारीशी कसे जोडलेले आहात?</h2>
+<p class="font-sans text-lg text-on-surface-variant mb-md">तुमचा अनुभव निवडा.</p>
+<!-- Initial Choices -->
+<div class="grid grid-cols-1 gap-md">
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="connection_type" onchange="toggleSections()" type="radio" value="in_wari">
+<div class="card-surface rounded-2xl p-6 flex flex-col items-center justify-center transition-all duration-300 relative">
+<span class="text-5xl mb-3">🙏</span>
+<span class="font-sans text-2xl font-bold text-primary">मी वारीत आहे</span>
+<span class="font-sans text-lg text-on-surface-variant mt-1">माझ्या वारीसाठी</span>
+<span class="material-symbols-outlined absolute right-4 text-secondary opacity-50 text-3xl">chevron_right</span>
+</div>
+</label>
+<!-- Expanded Section 1: User in Wari -->
+<section class="expandable-section bg-surface-container rounded-2xl px-6 pb-6 -mt-2" id="section_in_wari">
+<h3 class="font-sans text-xl font-bold text-primary mb-md border-b border-outline-variant/30 pb-2 pt-4">तुमच्याबद्दल थोडंसं सांगा</h3>
+<div class="space-y-md">
+<div>
+<label class="block font-sans text-lg font-medium text-primary mb-1">तुमचे नाव</label>
+<input class="w-full bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary focus:ring-secondary focus:border-secondary transition-colors text-lg" placeholder="उदा. विठ्ठल पाटील" type="text">
+</div>
+<div>
+<label class="block font-sans text-lg font-medium text-primary mb-1">मोबाईल नंबर</label>
+<div class="flex gap-2">
+<span class="bg-surface-variant px-4 py-3 rounded-xl text-primary flex items-center border border-outline-variant/50 text-lg font-medium">+91</span>
+<input class="flex-grow bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary focus:ring-secondary focus:border-secondary transition-colors text-lg" placeholder="9876543210" type="tel">
+</div>
+</div>
+<div>
+<label class="block font-sans text-lg font-medium text-primary mb-1">तुमची वारी कोणासोबत?</label>
+<select class="w-full bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary focus:ring-secondary focus:border-secondary transition-colors appearance-none text-lg">
+<option>निवडा...</option>
+<option>एकटे / एकटी</option>
+<option>कुटुंबासोबत</option>
+<option>मित्र / नातेवाईक</option>
+<option>दिंडीसोबत</option>
+</select>
+</div>
+<div class="mt-lg pt-md border-t border-outline-variant/30">
+<h4 class="font-sans text-lg font-bold text-primary mb-3">आपत्कालीन संपर्क</h4>
+<div class="space-y-3">
+<input class="w-full bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary text-lg focus:ring-secondary focus:border-secondary" placeholder="नाव" type="text">
+<input class="w-full bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary text-lg focus:ring-secondary focus:border-secondary" placeholder="मोबाईल नंबर" type="tel">
+<select class="w-full bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary text-lg focus:ring-secondary focus:border-secondary appearance-none">
+<option>नाते निवडा...</option>
+<option>आई / वडील</option>
+<option>भाऊ / बहीण</option>
+<option>पती / पत्नी</option>
+<option>मित्र</option>
+</select>
+</div>
+</div>
+<div class="pt-4 flex items-center justify-between">
+<span class="font-sans text-lg font-medium text-primary">भाषा:</span>
+<div class="flex gap-3 font-sans text-lg bg-surface px-4 py-2 rounded-xl border border-outline-variant/50">
+<button class="text-secondary font-bold">मराठी</button>
+<span class="text-outline-variant">|</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">हिंदी</button>
+<span class="text-outline-variant">|</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">English</button>
+</div>
+</div>
+<button class="w-full btn-primary rounded-full py-4 font-sans text-xl font-bold flex items-center justify-center gap-2 mt-6 shadow-[0px_4px_12px_rgba(217,155,78,0.3)] transition-transform hover:scale-[1.02]" onclick="window.location.href='{{DATA:SCREEN:SCREEN_25}}'">
+                        पुढे <span class="material-symbols-outlined text-2xl">arrow_forward</span>
+</button>
+</div>
+</section>
+<label class="relative cursor-pointer mt-2">
+<input class="peer sr-only" name="connection_type" onchange="toggleSections()" type="radio" value="family_in_wari">
+<div class="card-surface rounded-2xl p-6 flex flex-col items-center justify-center transition-all duration-300 relative">
+<span class="text-5xl mb-3">❤️</span>
+<span class="font-sans text-2xl font-bold text-primary">माझे कुटुंबीय वारीत आहेत</span>
+<span class="font-sans text-lg text-on-surface-variant mt-1">त्यांच्यासोबत राहा</span>
+<span class="material-symbols-outlined absolute right-4 text-secondary opacity-50 text-3xl">chevron_right</span>
+</div>
+</label>
+<!-- Expanded Section 2: Family in Wari -->
+<section class="expandable-section bg-surface-container rounded-2xl px-6 pb-6 -mt-2" id="section_family_in_wari">
+<h3 class="font-sans text-xl font-bold text-primary mb-md border-b border-outline-variant/30 pb-2 pt-4">वारकऱ्याशी जोडूया</h3>
+<div class="space-y-md">
+<div>
+<label class="block font-sans text-lg font-medium text-primary mb-1">तुमचे नाव</label>
+<input class="w-full bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary focus:ring-secondary focus:border-secondary transition-colors text-lg" placeholder="तुमचे नाव" type="text">
+</div>
+<div>
+<label class="block font-sans text-lg font-medium text-primary mb-1">तुमचा मोबाईल नंबर</label>
+<div class="flex gap-2">
+<span class="bg-surface-variant px-4 py-3 rounded-xl text-primary flex items-center border border-outline-variant/50 text-lg font-medium">+91</span>
+<input class="flex-grow bg-surface border-outline-variant/50 rounded-xl px-4 py-3 text-primary focus:ring-secondary focus:border-secondary transition-colors text-lg" placeholder="9876543210" type="tel">
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant/30">
+<label class="block font-sans text-lg font-medium text-primary mb-3">वारकऱ्याचा मोबाईल आहे?</label>
+<div class="flex gap-3">
+<label class="flex-1 relative cursor-pointer">
+<input class="peer sr-only" name="wari_mobile" onchange="toggleWariMobile()" type="radio" value="yes">
+<div class="bg-surface border border-outline-variant/50 rounded-xl py-3 text-center text-lg text-primary peer-checked:bg-secondary/10 peer-checked:border-secondary peer-checked:font-bold transition-colors shadow-sm">
+                                    📱 मोबाईल नंबर आहे
+                                </div>
+</label>
+<label class="flex-1 relative cursor-pointer">
+<input class="peer sr-only" name="wari_mobile" onchange="toggleWariMobile()" type="radio" value="no">
+<div class="bg-surface border border-outline-variant/50 rounded-xl py-3 text-center text-lg text-primary peer-checked:bg-secondary/10 peer-checked:border-secondary peer-checked:font-bold transition-colors shadow-sm">
+                                    🤍 नंबर नाही
+                                </div>
+</label>
+</div>
+</div>
+<!-- Sub-section: Has Mobile -->
+<div class="hidden space-y-3 mt-4 p-4 bg-surface rounded-xl border border-outline-variant/30" id="sub_has_mobile">
+<h4 class="font-sans text-lg font-bold text-primary mb-2">वारकऱ्याची माहिती</h4>
+<input class="w-full bg-surface-container border-outline-variant/50 rounded-xl px-4 py-3 text-primary text-lg focus:ring-secondary focus:border-secondary" placeholder="वारकऱ्याचे नाव" type="text">
+<input class="w-full bg-surface-container border-outline-variant/50 rounded-xl px-4 py-3 text-primary text-lg focus:ring-secondary focus:border-secondary" placeholder="वारकऱ्याचा मोबाईल नंबर" type="tel">
+<button class="w-full btn-primary rounded-full py-4 font-sans text-lg font-bold flex items-center justify-center gap-2 mt-4" onclick="window.location.href='{{DATA:SCREEN:SCREEN_25}}'">
+                            जोडणीसाठी विनंती पाठवा <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+<!-- Sub-section: No Mobile -->
+<div class="hidden mt-4 p-5 bg-surface rounded-xl border border-outline-variant/30 text-center" id="sub_no_mobile">
+<p class="font-sans text-lg text-primary mb-4 leading-relaxed">काही हरकत नाही. वारीवाणी वापरा. जोडणी नंतर करता येईल.</p>
+<button class="w-full border-2 border-secondary text-secondary rounded-full py-3 font-sans text-lg font-bold flex items-center justify-center gap-2 hover:bg-secondary/5 transition-colors min-h-[56px]" onclick="window.location.href='{{DATA:SCREEN:SCREEN_25}}'">
+                            वारीवाणी सुरू करा <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</section>
+</main>
+</div>
+<script>
+        function toggleSections() {
+            const inWari = document.querySelector('input[name="connection_type"][value="in_wari"]').checked;
+            const familyInWari = document.querySelector('input[name="connection_type"][value="family_in_wari"]').checked;
+            
+            const sectionInWari = document.getElementById('section_in_wari');
+            const sectionFamily = document.getElementById('section_family_in_wari');
+
+            if (inWari) {
+                sectionInWari.classList.add('expanded');
+                sectionFamily.classList.remove('expanded');
+            } else if (familyInWari) {
+                sectionFamily.classList.add('expanded');
+                sectionInWari.classList.remove('expanded');
+            }
+        }
+
+        function toggleWariMobile() {
+            const hasMobile = document.querySelector('input[name="wari_mobile"][value="yes"]').checked;
+            const noMobile = document.querySelector('input[name="wari_mobile"][value="no"]').checked;
+            
+            const subHasMobile = document.getElementById('sub_has_mobile');
+            const subNoMobile = document.getElementById('sub_no_mobile');
+
+            if (hasMobile) {
+                subHasMobile.classList.remove('hidden');
+                subNoMobile.classList.add('hidden');
+            } else if (noMobile) {
+                subNoMobile.classList.remove('hidden');
+                subHasMobile.classList.add('hidden');
+            }
+        }
+    </script>
+
+
+</body></html>

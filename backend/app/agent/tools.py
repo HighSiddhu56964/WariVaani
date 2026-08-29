@@ -220,7 +220,7 @@ def find_nearest_medical_tool(
     db: Session, text: str = ""
 ) -> Tuple[str, bool]:
     """
-    Search PostGIS database for nearest medical facilities.
+    Search database for nearest medical facilities.
     Returns (response_text, requires_followup).
     """
     coords = resolve_location_name(text)
@@ -229,25 +229,30 @@ def find_nearest_medical_tool(
         return ("ठीक आहे. तुम्ही सध्या कोणत्या गावाजवळ आहात?", True)
 
     lat, lon = coords
-    user_point = func.ST_SetSRID(func.ST_MakePoint(lon, lat), 4326)
-    user_geog = cast(user_point, Geography)
-    facility_geog = cast(Facility.location_geom, Geography)
 
-    distance_expr = func.ST_Distance(facility_geog, user_geog).label("distance_meters")
+    facilities = db.scalars(select(Facility).where(Facility.type.ilike("%MEDICAL%"))).all()
+    if not facilities:
+        facilities = db.scalars(select(Facility)).all()
 
-    query = (
-        select(Facility, distance_expr)
-        .where(Facility.type.ilike("%MEDICAL%"))
-        .order_by("distance_meters")
-        .limit(1)
-    )
-
-    results = db.execute(query).all()
-
-    if not results:
+    if not facilities:
         return ("या ठिकाणाजवळ नोंदणीकृत वैद्यकीय केंद्र सापडलं नाही.", False)
 
-    facility, dist_m = results[0]
+    import math
+
+    def calc_dist(f):
+        dlat = math.radians(f.latitude - lat)
+        dlon = math.radians(f.longitude - lon)
+        a = (
+            math.sin(dlat / 2.0) ** 2
+            + math.cos(math.radians(lat))
+            * math.cos(math.radians(f.latitude))
+            * math.sin(dlon / 2.0) ** 2
+        )
+        return 6371000.0 * 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
+
+    facility = min(facilities, key=calc_dist)
+    dist_m = calc_dist(facility)
+
     dist_str = f"{dist_m / 1000.0:.1f} किलोमीटर" if dist_m >= 1000 else f"{int(dist_m)} मीटर"
     landmark = f", {facility.landmark}जवळ" if facility.landmark else ""
     return (f"सर्वात जवळ {facility.name}{landmark} आहे. ते सुमारे {dist_str} अंतरावर आहे.", False)

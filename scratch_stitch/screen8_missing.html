@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="light" lang="mr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Missing Person Form</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f8efeb",
+                    "surface-tint": "#7a573d",
+                    "secondary-container": "#ffbc6c",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdea4",
+                    "tertiary": "#4e3700",
+                    "background": "#fff8f5",
+                    "inverse-primary": "#ebbd9d",
+                    "outline": "#82746c",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b19",
+                    "primary-container": "#6b4a31",
+                    "secondary": "#855308",
+                    "secondary-fixed": "#ffddb9",
+                    "outline-variant": "#d4c3ba",
+                    "surface-bright": "#fff8f5",
+                    "on-tertiary-fixed": "#261900",
+                    "tertiary-fixed-dim": "#e8c176",
+                    "on-secondary-container": "#784a00",
+                    "on-background": "#1f1b19",
+                    "primary-fixed": "#ffdcc4",
+                    "surface-container": "#f5ece8",
+                    "secondary-fixed-dim": "#fcba69",
+                    "on-primary-fixed": "#2d1603",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fff8f5",
+                    "on-tertiary-container": "#e7bf75",
+                    "primary-fixed-dim": "#ebbd9d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e9e1dd",
+                    "on-surface-variant": "#50453d",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#2b1700",
+                    "on-tertiary-fixed-variant": "#5d4200",
+                    "on-primary-container": "#e9bb9b",
+                    "tertiary-container": "#694d0b",
+                    "on-primary-fixed-variant": "#5f4028",
+                    "surface-container-low": "#fbf2ee",
+                    "inverse-surface": "#34302d",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#efe6e2",
+                    "on-secondary-fixed-variant": "#663e00",
+                    "surface-dim": "#e1d8d4",
+                    "primary": "#51341c",
+                    "surface-variant": "#e9e1dd",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "unit": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #FBF3E7;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        
+        /* Form transition animations */
+        .step-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .step-content.active {
+            max-height: 500px;
+            opacity: 1;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        #success-state {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        #success-state.active {
+            display: block;
+            opacity: 1;
+        }
+        #form-state {
+            transition: opacity 0.3s ease-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen pb-32">
+<!-- Top App Bar - Simplified for transactional screen -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md docked full-width top-0 border-b border-outline-variant/30 flat no shadows flex justify-between items-center px-margin-mobile h-16 w-full max-w-full sticky z-40">
+<button aria-label="Back" class="text-primary dark:text-primary-fixed p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed text-center flex-1 pr-10">हरवलेली व्यक्ती</h1>
+</header>
+<main class="max-w-2xl mx-auto px-margin-mobile pt-lg relative z-10">
+<!-- Interactive Form State -->
+<div id="form-state">
+<div class="mb-lg text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">कृपया खालील माहिती अचूक भरा जेणेकरून आम्ही मदत करू शकू.</p>
+</div>
+<!-- Progress Tracker -->
+<div class="flex items-center justify-between mb-xl relative">
+<!-- Connecting Line Base -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 border-t-2 border-dotted border-[#C9A45C]/50 z-0"></div>
+<!-- Active Connecting Line (Progress) -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 border-t-2 border-solid border-[#D99B4E] z-0 transition-all duration-300" id="progress-line" style="width: 0%;"></div>
+<!-- Steps -->
+<div class="relative z-10 flex flex-col items-center step-indicator active" data-step="1">
+<div class="w-10 h-10 rounded-full bg-[#D99B4E] text-white flex items-center justify-center font-label-lg text-label-lg shadow-sm border-2 border-white transition-colors duration-300">1</div>
+<span class="font-label-sm text-label-sm mt-2 text-primary font-bold">व्यक्ती</span>
+</div>
+<div class="relative z-10 flex flex-col items-center step-indicator" data-step="2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-lg text-label-lg shadow-sm border-2 border-white transition-colors duration-300">2</div>
+<span class="font-label-sm text-label-sm mt-2 text-on-surface-variant">ठिकाण</span>
+</div>
+<div class="relative z-10 flex flex-col items-center step-indicator" data-step="3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-lg text-label-lg shadow-sm border-2 border-white transition-colors duration-300">3</div>
+<span class="font-label-sm text-label-sm mt-2 text-on-surface-variant">संपर्क</span>
+</div>
+</div>
+<form class="space-y-md" id="missing-person-form">
+<!-- Step 1: Basic Info -->
+<div class="bg-[#F5E9D6] rounded-xl border border-[#C9A45C]/30 overflow-hidden shadow-sm">
+<div class="px-md py-4 flex justify-between items-center cursor-pointer bg-surface/50" onclick="toggleStep(1)">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D99B4E]">person</span>
+                            व्यक्तीची माहिती
+                        </h2>
+<span class="material-symbols-outlined text-outline" id="icon-step-1">expand_less</span>
+</div>
+<div class="step-content active px-md bg-surface-container-lowest/50" id="content-step-1">
+<div class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="name">संपूर्ण नाव</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E] focus:ring-1 focus:ring-[#D99B4E] transition-shadow" id="name" placeholder="उदा. रामराव पांडुरंग कदम" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="age">वय (अंदाजे)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="age" placeholder="६५" type="number"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="gender">लिंग</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="gender">
+<option>पुरुष</option>
+<option>स्त्री</option>
+<option>इतर</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">फोटो (असल्यास)</label>
+<div class="border-2 border-dashed border-outline-variant/50 rounded-lg p-6 text-center bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-outline text-3xl mb-2">add_a_photo</span>
+<p class="font-body-md text-body-md text-on-surface-variant">फोटो अपलोड करण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="pt-2 flex justify-end">
+<button class="bg-[#D99B4E] text-white font-label-lg text-label-lg py-2 px-6 rounded-full flex items-center gap-2 hover:bg-[#c4893e] transition-colors shadow-sm" onclick="nextStep(1)" type="button">
+                                    पुढे जा
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Location & Time -->
+<div class="bg-[#F5E9D6] rounded-xl border border-[#C9A45C]/30 overflow-hidden shadow-sm">
+<div class="px-md py-4 flex justify-between items-center cursor-pointer bg-surface/50" onclick="toggleStep(2)">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D99B4E]">location_on</span>
+                            शेवटचे ठिकाण
+                        </h2>
+<span class="material-symbols-outlined text-outline" id="icon-step-2">expand_more</span>
+</div>
+<div class="step-content px-md bg-surface-container-lowest/50" id="content-step-2">
+<div class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="location">हरवल्याचे ठिकाण / वारीचा टप्पा</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="location" placeholder="उदा. आळंदी, ज्ञानेश्वर महाराज मंदिर परिसर" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="time">अंदाजे वेळ</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="time" type="time"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="clothing">अंगावरील कपडे व खुणा</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="clothing" placeholder="पांढरा सदरा, डोक्यावर टोपी..." rows="2"></textarea>
+</div>
+<div class="pt-2 flex justify-between">
+<button class="border border-[#C9A45C] text-primary font-label-lg text-label-lg py-2 px-6 rounded-full hover:bg-surface-container-low transition-colors" onclick="prevStep(2)" type="button">मागे</button>
+<button class="bg-[#D99B4E] text-white font-label-lg text-label-lg py-2 px-6 rounded-full flex items-center gap-2 hover:bg-[#c4893e] transition-colors shadow-sm" onclick="nextStep(2)" type="button">
+                                    पुढे जा
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 3: Contact Info -->
+<div class="bg-[#F5E9D6] rounded-xl border border-[#C9A45C]/30 overflow-hidden shadow-sm">
+<div class="px-md py-4 flex justify-between items-center cursor-pointer bg-surface/50" onclick="toggleStep(3)">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D99B4E]">call</span>
+                            तुमचा संपर्क
+                        </h2>
+<span class="material-symbols-outlined text-outline" id="icon-step-3">expand_more</span>
+</div>
+<div class="step-content px-md bg-surface-container-lowest/50" id="content-step-3">
+<div class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="contact-name">तुमचे नाव</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="contact-name" placeholder="संपर्क व्यक्तीचे नाव" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="phone">मोबाईल क्रमांक</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-[#D99B4E]" id="phone" placeholder="९८७६५४३२१०" type="tel"/>
+</div>
+<div class="pt-4 flex justify-between">
+<button class="border border-[#C9A45C] text-primary font-label-lg text-label-lg py-2 px-6 rounded-full hover:bg-surface-container-low transition-colors" onclick="prevStep(3)" type="button">मागे</button>
+<button class="bg-[#D99B4E] text-white font-label-lg text-label-lg py-2 px-8 rounded-full flex items-center gap-2 hover:bg-[#c4893e] transition-colors shadow-[0px_10px_30px_rgba(217,155,78,0.2)]" onclick="submitForm()" type="button">
+                                    नोंद करा
+                                    <span class="material-symbols-outlined text-sm">check_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Success State (Initially Hidden) -->
+<div class="text-center pt-8" id="success-state">
+<div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#F5E9D6] border-2 border-[#C9A45C]/50 mb-6 shadow-[0px_10px_30px_rgba(217,155,78,0.2)]">
+<span class="material-symbols-outlined text-5xl text-[#D99B4E]">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2">नोंद करण्यात आली</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-sm mx-auto">तुमची माहिती वारी मदत केंद्राला पाठवण्यात आली आहे. आम्ही लवकरच संपर्क करू.</p>
+<!-- Status Timeline -->
+<div class="bg-[#F5E9D6] rounded-xl border border-[#C9A45C]/30 p-md text-left mb-8 max-w-sm mx-auto">
+<h3 class="font-label-lg text-label-lg text-primary mb-4 border-b border-[#C9A45C]/30 pb-2">स्थिती (Status)</h3>
+<div class="relative pl-6 border-l-2 border-[#D99B4E] space-y-6">
+<div class="relative">
+<div class="absolute -left-[1.6rem] top-1 w-3 h-3 rounded-full bg-[#D99B4E] border-2 border-[#F5E9D6]"></div>
+<p class="font-label-lg text-label-lg text-primary">माहिती प्राप्त झाली</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">आत्ताच</p>
+</div>
+<div class="relative opacity-50">
+<div class="absolute -left-[1.6rem] top-1 w-3 h-3 rounded-full bg-outline-variant border-2 border-[#F5E9D6]"></div>
+<p class="font-label-lg text-label-lg text-on-surface-variant">स्वयंसेवकांना सूचित केले</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">प्रलंबित</p>
+</div>
+</div>
+</div>
+<button class="border border-[#C9A45C] text-primary font-label-lg text-label-lg py-2 px-8 rounded-full hover:bg-surface-container-low transition-colors" onclick="location.reload()">
+                मुख्यपृष्ठावर जा
+            </button>
+</div>
+</main>
+<script>
+        // Simple JS for inline expansion and form flow
+        let currentStep = 1;
+
+        function toggleStep(step) {
+            const content = document.getElementById(`content-step-${step}`);
+            const icon = document.getElementById(`icon-step-${step}`);
+            
+            // Close others
+            for(let i=1; i<=3; i++) {
+                if(i !== step) {
+                    document.getElementById(`content-step-${i}`).classList.remove('active');
+                    document.getElementById(`icon-step-${i}`).textContent = 'expand_more';
+                }
+            }
+
+            // Toggle clicked
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.textContent = 'expand_more';
+            } else {
+                content.classList.add('active');
+                icon.textContent = 'expand_less';
+                updateProgress(step);
+            }
+        }
+
+        function nextStep(current) {
+            if(current < 3) {
+                toggleStep(current + 1);
+            }
+        }
+
+        function prevStep(current) {
+            if(current > 1) {
+                toggleStep(current - 1);
+            }
+        }
+
+        function updateProgress(step) {
+            currentStep = step;
+            const indicators = document.querySelectorAll('.step-indicator');
+            const progressLine = document.getElementById('progress-line');
+            
+            // Update line width based on step (0%, 50%, 100%)
+            const progress = (step - 1) * 50;
+            progressLine.style.width = `${progress}%`;
+
+            indicators.forEach(indicator => {
+                const indStep = parseInt(indicator.dataset.step);
+                const circle = indicator.querySelector('div');
+                const text = indicator.querySelector('span');
+
+                if (indStep <= step) {
+                    circle.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+                    circle.classList.add('bg-[#D99B4E]', 'text-white');
+                    text.classList.add('text-primary', 'font-bold');
+                    text.classList.remove('text-on-surface-variant');
+                } else {
+                    circle.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                    circle.classList.remove('bg-[#D99B4E]', 'text-white');
+                    text.classList.remove('text-primary', 'font-bold');
+                    text.classList.add('text-on-surface-variant');
+                }
+            });
+        }
+
+        function submitForm() {
+            // Fake submission delay for effect
+            const btn = document.querySelector('button[onclick="submitForm()"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> पाठवत आहे...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('form-state').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('form-state').style.display = 'none';
+                    const successState = document.getElementById('success-state');
+                    successState.classList.add('active');
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 300);
+            }, 800);
+        }
+    </script>
+</body></html>

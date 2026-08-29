@@ -62,10 +62,8 @@ class RouteCheckpoint(Base):
     )
     data_type: Mapped[str] = mapped_column(String(50), default="REFERENCE_2025", nullable=False)
 
-    # PostGIS Point Geometry (WGS84, SRID 4326)
-    location_geom: Mapped[Optional[str]] = mapped_column(
-        Geometry("POINT", srid=4326, spatial_index=True), nullable=True
-    )
+    # Optional WKT Point string / location representation
+    location_geom: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
 
     palkhi: Mapped["Palkhi"] = relationship("Palkhi", back_populates="checkpoints", overlaps="locations")
 

@@ -1,0 +1,294 @@
+<!DOCTYPE html><html class="light" lang="mr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Wari Pilgramage App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#dbc2b0",
+                    "surface-dim": "#ffd0bc",
+                    "tertiary-fixed-dim": "#ccc6b7",
+                    "on-surface-variant": "#554336",
+                    "surface-bright": "#fff8f6",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#b15f00",
+                    "secondary": "#6e5e0d",
+                    "secondary-fixed-dim": "#dcc66e",
+                    "tertiary": "#605c50",
+                    "inverse-surface": "#51230a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#fffbff",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#f6df84",
+                    "surface-container": "#ffeae1",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#ffdcc3",
+                    "inverse-on-surface": "#ffede6",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#f9e287",
+                    "on-tertiary-fixed": "#1e1c12",
+                    "on-secondary-fixed-variant": "#534600",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#ffb77d",
+                    "surface-container-high": "#ffe2d7",
+                    "on-tertiary-fixed-variant": "#4a473b",
+                    "inverse-primary": "#ffb77d",
+                    "surface-container-highest": "#ffdbcc",
+                    "surface": "#FFF8E8", /* Parchment Base Override */
+                    "surface-variant": "#ffdbcc",
+                    "on-background": "#351000",
+                    "on-secondary-fixed": "#221b00",
+                    "on-primary-container": "#fffbff",
+                    "primary": "#E27730", /* Saffron Primary Override */
+                    "surface-container-low": "#fff1eb",
+                    "outline": "#887364",
+                    "tertiary-container": "#797467",
+                    "on-primary-fixed": "#2f1500",
+                    "on-secondary-container": "#726212",
+                    "background": "#FFF8E8", /* Parchment Base Override */
+                    "on-primary-fixed-variant": "#6e3900",
+                    "tertiary-fixed": "#e9e2d2",
+                    "on-surface": "#4A3219", /* Umber Override */
+                    "surface-tint": "#904d00",
+                    "card-border": "#E9D8A6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1rem",
+                    "2xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "1rem",
+                    "stack-gap": "1rem",
+                    "container-padding": "1.25rem",
+                    "card-inner-padding": "1.25rem",
+                    "section-margin": "1.5rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                    "body-md": ["Be Vietnam Pro", "sans-serif"],
+                    "caption": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-sm": ["Be Vietnam Pro", "sans-serif"],
+                    "label-md": ["Be Vietnam Pro", "sans-serif"],
+                    "display-lg": ["Be Vietnam Pro", "sans-serif"]
+            },
+            "boxShadow": {
+                'warm': '0 4px 12px rgba(69, 26, 3, 0.08)',
+                'warm-lg': '0 10px 25px rgba(69, 26, 3, 0.12)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            color: theme('colors.on-surface');
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .bg-deity {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxaZ_5g-i6ggheZZXB9jBNxKER_h_5Jjv7TX82Yg47SgAkRYxn7z7T3Wvy9dNh1pRcv6JBK_YldMVUWHwerqZ4GKf5fubxy9nAMw4pfXrsAqRHHsFYNewGKs4g0Uc5FqKu0VQ3urY5-m4_7oIxJ7OkDbj3aRMtCsGqfw-F-MUIrrBsVWk6XSNsMt1MHQzyeM46Nbs4A43V9ur-MQBVcIL_kio6qWWzcSPCE1Bsu8HuEDaea6DvioIDcedGfEKYf1RI7xA');
+            background-size: cover;
+            background-position: top center;
+            opacity: 0.15;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-28 relative overflow-x-hidden font-body-md">
+<!-- Top Navigation / Header -->
+<header class="relative pt-12 pb-6 px-container-padding flex justify-between items-start z-10">
+<!-- Background Illustrations -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-deity pointer-events-none -z-10"></div>
+<img class="absolute top-0 left-0 w-32 h-32 object-contain opacity-50 -z-10" data-alt="Soft green leaves hanging from the top left corner of a warm parchment background, painted in a traditional Indian style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVw1IJY3yHPhIJPNPdnzsnEfRAQgHbwfQjCbM9bS4kwxqccZx22OKL_kTT61TdZ-ygIac6P4SzrMfGeqp9ZC511DH6ubx-TGLm5_z69sT73n2KhEzqCEQekFl3G7-6w2jL0LWuhpHujUfV05TtJUJtEhi6Mjil15vJAITFTxD8y5dYENcSiAOj_5H8qiUF-R8hzcoKME8XhXMyHUDV1VNEAqgnsWRO73VV1MexVPBXDbXRCqxZLyTlw">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-primary text-xl">॥</span>
+<h1 class="text-primary font-bold text-headline-sm tracking-wide">जय हरी विठ्ठल</h1>
+<span class="text-primary text-xl">॥</span>
+</div>
+<h2 class="text-display-lg text-on-surface font-extrabold mb-1">नमस्कार, गणेश</h2>
+<p class="text-body-md text-on-surface-variant">वारीवाणी तुमच्या सोबत आहे.</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-[#FCF3D7] shadow-warm flex items-center justify-center text-on-surface hover:bg-[#F3E5BB] transition-colors border border-card-border/50">
+<span class="material-symbols-outlined fill text-2xl">person</span>
+</button>
+</header>
+<main class="px-container-padding flex flex-col gap-section-margin z-10 relative">
+<!-- Journey Card -->
+<section class="bg-[#FCF3D7] rounded-2xl border border-card-border shadow-warm overflow-hidden relative">
+<img class="absolute right-0 top-0 w-1/2 h-full object-cover object-left opacity-90" data-alt="A group of warkari pilgrims wearing traditional white clothes, Gandhi topis, and carrying saffron flags, walking on a dusty rural road towards a bright sunrise. Warm, serene, golden hour lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9SkJACKGgYeU8LvzpMXOgMVDyPGajsFIkTTFT7EVzu9MJWOecZ4cvDnhuHj1luYMft6KfObHltvOPsu_gU-hE2VL6fGAN7QZbvs2TlmcwWWDUTFfdM0y5pOcOWstOA41ZWmNHeQwogI9Ug9nnwxhrg36Ue9SIKe4cfDS2r9cJzxoP0uCowxpE7B2QLtkftcGXZC8QSLddGntR-xkHQIp3hD0p3HE0NPZ1_RpQURrVJdMVkfJgyeF2SA">
+<div class="p-card-inner-padding relative z-10 w-2/3 bg-gradient-to-r from-[#FCF3D7] via-[#FCF3D7]/90 to-transparent">
+<div class="flex items-center gap-2 text-primary mb-4">
+<span class="material-symbols-outlined fill">flag</span>
+<h3 class="font-bold text-headline-sm">आजची वारी</h3>
+</div>
+<div class="mb-1">
+<span class="text-display-lg font-extrabold text-on-surface">12.4 <span class="text-headline-md font-bold">km</span></span>
+</div>
+<p class="text-body-md text-on-surface-variant mb-6">आजचा प्रवास</p>
+<div class="flex items-center w-full mb-6 relative">
+<div class="h-1 bg-primary w-1/3 rounded-l-full relative z-10"></div>
+<div class="w-4 h-4 rounded-full bg-primary shadow-[0_0_0_4px_rgba(226,119,48,0.2)] relative z-20 -ml-2"></div>
+<div class="h-0 border-t-2 border-dashed border-tertiary-fixed-dim w-2/3 ml-1 relative z-10"></div>
+<div class="w-3 h-3 rounded-full border-2 border-tertiary-fixed-dim bg-transparent relative z-20 -ml-1"></div>
+</div>
+<div class="flex justify-between items-end w-[140%]">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<span class="material-symbols-outlined fill text-3xl">temple_hindu</span>
+</div>
+<div>
+<p class="text-caption text-on-surface-variant">पुढचा मुक्काम:</p>
+<p class="text-headline-sm font-bold text-on-surface">माळशिरस</p>
+</div>
+</div>
+<button class="bg-[#FFF8E8]/90 backdrop-blur-sm border border-card-border px-4 py-2 rounded-xl text-on-surface font-bold text-label-md flex items-center gap-2 shadow-sm hover:bg-[#FFF8E8] transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-xl">map</span>
+                        मार्ग पहा
+                    </button>
+</div>
+</div>
+</section>
+<!-- Route Card -->
+<section class="bg-[#FCF3D7] rounded-2xl border border-card-border shadow-warm overflow-hidden flex flex-col">
+<div class="p-card-inner-padding pb-3 flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined fill text-primary">location_on</span>
+<h3 class="font-bold text-headline-sm">वारी सध्या कुठे आहे?</h3>
+</div>
+<div class="relative w-full h-40 bg-[#E8E1D5] border-y border-card-border/50">
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60" data-alt="A soft, stylized map of Maharashtra showing the route from Baramati to Pandharpur via Malshiras. The map uses pale beige, light green, and soft blue colors for rivers and landmasses." data-location="Maharashtra" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtIQSWzgu63Jr_ZiDQE0XDPoUaMKBkgNmPmdOcjgLbSo5DdggNp2wDtM-a8Fm9JrYidSVQ5o5ftQ1BKJt8GXAQBZAKqkY-K5WnoIsIWYRm-TDnI5Ibc2NwyIWN2lJn-Q3D0x3E1TocxN-IMqKxkaQToDYOmHBQPd_e2GUG5kbx0uKY_eN4VHJc5N2LJJS8PgOL7hIpFkPBbHkeYEnhX2xNvO99njErKEtCxQrAJk4pvUkkYKXQzf0G1g">
+<!-- SVG Overlay for Route Line -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 400 160">
+<path d="M 50,110 C 100,140 150,130 200,90 C 250,50 300,100 350,90" fill="none" stroke="#E27730" stroke-dasharray="6,6" stroke-width="3"></path>
+</svg>
+<!-- Points on Map -->
+<!-- Baramati -->
+<div class="absolute left-[10%] top-[65%] flex flex-col items-center -translate-x-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-primary fill text-lg mb-1">flag</span>
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-caption font-medium mt-1 text-on-surface bg-white/50 px-1 rounded">बारामती</span>
+</div>
+<!-- Current Location: Malshiras -->
+<div class="absolute left-[50%] top-[45%] flex flex-col items-center -translate-x-1/2 -translate-y-1/2 z-10">
+<span class="text-caption font-bold mb-1 text-on-surface bg-white/70 px-2 py-0.5 rounded shadow-sm">माळशिरस</span>
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+<div class="w-8 h-8 rounded-full bg-white border-2 border-primary shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary fill text-lg">temple_hindu</span>
+</div>
+</div>
+</div>
+<!-- Pandharpur -->
+<div class="absolute left-[85%] top-[50%] flex flex-col items-center -translate-x-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-primary fill text-lg mb-1">flag</span>
+<div class="w-3 h-3 rounded-full bg-primary border-2 border-white"></div>
+<span class="text-caption font-bold mt-1 text-on-surface bg-white/70 px-2 py-0.5 rounded shadow-sm">पंढरपूर</span>
+</div>
+</div>
+<button class="w-full py-3 text-primary font-bold text-label-md flex justify-center items-center gap-2 hover:bg-primary/5 transition-colors">
+                नकाशा उघडा <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</section>
+<!-- Quick Help -->
+<section>
+<h3 class="font-bold text-headline-sm text-on-surface mb-4">त्वरित मदत</h3>
+<div class="grid grid-cols-4 gap-3"><button class="bg-[#FCF3D7] rounded-2xl border border-card-border p-4 flex flex-col items-center justify-center gap-3 shadow-warm hover:-translate-y-1 transition-transform">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined fill text-2xl">home_repair_service</span>
+</div>
+<span class="text-label-md font-bold text-on-surface">सुविधा</span>
+</button>
+<button class="bg-[#FCF3D7] rounded-2xl border border-card-border p-4 flex flex-col items-center justify-center gap-3 shadow-warm hover:-translate-y-1 transition-transform">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined fill text-2xl">inventory_2</span>
+</div>
+<span class="text-label-md font-bold text-on-surface">हरवलेले-सापडलेले</span>
+</button>
+<button class="bg-[#FCF3D7] rounded-2xl border border-card-border p-4 flex flex-col items-center justify-center gap-3 shadow-warm hover:-translate-y-1 transition-transform">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined fill text-2xl">person_search</span>
+</div>
+<span class="text-label-md font-bold text-on-surface">बेपत्ता व्यक्ती</span>
+</button>
+<button class="bg-[#FCF3D7] rounded-2xl border border-card-border p-4 flex flex-col items-center justify-center gap-3 shadow-warm hover:-translate-y-1 transition-transform">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined fill text-2xl">support</span>
+</div>
+<span class="text-label-md font-bold text-on-surface">मदत</span>
+</button></div>
+</section>
+<!-- Notice Card -->
+<section class="bg-gradient-to-br from-[#FCF3D7] to-[#F3E5BB] rounded-2xl border border-card-border shadow-warm p-card-inner-padding flex items-center justify-between relative overflow-hidden">
+<div class="absolute right-0 top-0 h-full w-1/2 bg-deity opacity-20 mix-blend-multiply pointer-events-none"></div>
+<div class="flex items-start gap-4 relative z-10">
+<span class="material-symbols-outlined fill text-primary text-3xl mt-1">campaign</span>
+<div>
+<h3 class="font-bold text-headline-sm text-primary mb-1">आजची सूचना</h3>
+<p class="text-body-md text-on-surface font-medium">पुढील मार्गावर गर्दी आहे.</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-[#FFF8E8] shadow-sm flex items-center justify-center text-on-surface hover:bg-white transition-colors relative z-10">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-end pb-4 pt-4 px-2 h-24 bg-[#FCF3D7] shadow-[0_-4px_12px_rgba(69,26,3,0.08)] rounded-t-3xl border-t border-card-border/50">
+<!-- Wavy Background Overlay (Simulated via SVG) -->
+<div class="absolute -top-6 left-0 w-full h-12 pointer-events-none flex justify-center z-[-1]">
+<svg fill="none" height="30" viewBox="0 0 120 30" width="120" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 30 C30 30 40 0 60 0 C80 0 90 30 120 30 Z" fill="#FCF3D7" stroke="#E9D8A6" stroke-width="1"></path>
+</svg>
+</div>
+<button class="flex flex-col items-center justify-center w-16 gap-1 group">
+<span class="material-symbols-outlined fill text-primary text-3xl group-hover:scale-110 transition-transform">home</span>
+<span class="text-[11px] font-bold text-primary">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 gap-1 group">
+<span class="material-symbols-outlined fill text-on-surface-variant text-3xl group-hover:text-primary group-hover:scale-110 transition-all">flag</span>
+<span class="text-[11px] font-bold text-on-surface-variant">Wari</span>
+</button>
+<!-- Vaani (Center FAB) -->
+<div class="relative -top-8 flex flex-col items-center z-10 w-20">
+<div class="w-16 h-16 rounded-full bg-gradient-to-b from-[#FAD28A] to-[#F1B945] p-[2px] shadow-warm-lg flex items-center justify-center mb-1">
+<div class="w-full h-full rounded-full bg-gradient-to-b from-[#FBE8B7] to-[#F1C55C] flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined fill text-on-surface text-3xl">mic</span>
+</div>
+</div>
+<span class="text-[12px] font-bold text-primary mb-0.5">Vaani</span>
+<span class="text-[10px] text-on-surface-variant whitespace-nowrap">फोनवर बोला</span>
+</div>
+<button class="flex flex-col items-center justify-center w-16 gap-1 group">
+<span class="material-symbols-outlined fill text-on-surface-variant text-3xl group-hover:text-primary group-hover:scale-110 transition-all">notifications</span>
+<span class="text-[11px] font-bold text-on-surface-variant">Updates</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 gap-1 group">
+<span class="material-symbols-outlined fill text-on-surface-variant text-3xl group-hover:text-primary group-hover:scale-110 transition-all">person</span>
+<span class="text-[11px] font-bold text-on-surface-variant">Profile</span>
+</button>
+</nav>
+
+
+</body></html>

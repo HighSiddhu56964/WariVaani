@@ -39,6 +39,10 @@ class Settings(BaseSettings):
     SARVAM_TTS_SPEAKER: str = "shubh"
     SARVAM_TTS_SAMPLE_RATE: int = 16000
 
+    # Exotel Telephony Settings
+    EXOTEL_ENABLED: bool = True
+    EXOTEL_SAMPLE_RATE: int = 16000
+
     STT_API_KEY: Optional[str] = None
     TTS_API_KEY: Optional[str] = None
     HF_TOKEN: Optional[str] = None

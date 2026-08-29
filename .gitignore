@@ -1,14 +1,22 @@
+# Node / Frontend
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+build/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+*.node
 
 # C extensions
 *.so
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/

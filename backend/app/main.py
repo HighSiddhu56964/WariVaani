@@ -13,12 +13,10 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS configuration for Person 2's Next.js frontend (e.g., http://localhost:3000)
-origins = getattr(settings, "CORS_ORIGINS", ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8000"])
-
+# CORS configuration for Next.js frontend, ngrok, and Exotel telephony
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -42,6 +40,16 @@ async def websocket_events_endpoint(websocket: WebSocket):
         ws_manager.disconnect(websocket)
 
 
+try:
+    from app.telephony.exotel import router as telephony_router
+    app.include_router(telephony_router)
+    print("✅ [TELEPHONY] Router registered successfully (/telephony/health, /telephony/debug, /telephony/test, /telephony/exotel)", flush=True)
+except Exception as tel_err:
+    print(f"❌ [TELEPHONY CRITICAL ERROR] Failed to load telephony router: {tel_err}", flush=True)
+    import traceback
+    traceback.print_exc()
+
+
 # Mount Health router at root
 app.include_router(health.router)
 
@@ -61,3 +69,4 @@ app.include_router(missing_person.router)
 app.include_router(agent.router)
 app.include_router(dashboard.router)
 app.include_router(demo.router)
+

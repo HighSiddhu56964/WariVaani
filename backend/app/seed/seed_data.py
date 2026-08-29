@@ -91,7 +91,7 @@ def seed_palkhi_and_checkpoints(db: Session, name: str, saint: str, route_name: 
             ringan_type=item.get("ringan_type"),
             source_year=2025,
             data_type="REFERENCE_2025",
-            location_geom=WKTElement(wkt, srid=4326)
+            location_geom=wkt
         )
         db.add(cp)
         db.commit()
@@ -134,7 +134,7 @@ def seed_facilities(db: Session):
                 landmark=fac["landmark"],
                 status="ACTIVE",
                 source="GEOCODED_REFERENCE",
-                location_geom=WKTElement(wkt, srid=4326)
+                location_geom=wkt,
             ))
     db.commit()
     print("[OK] Seeded facilities data.")
@@ -142,6 +142,10 @@ def seed_facilities(db: Session):
 
 def seed_database():
     """Populate database for both Palkhis and route checkpoints."""
+    from app.database.connection import engine
+    from app.models import Base
+
+    Base.metadata.create_all(bind=engine)
     db: Session = SessionLocal()
     try:
         print("[START] Starting WariVaani Multi-Palkhi database seeding...")

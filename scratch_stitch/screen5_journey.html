@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="mr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wari Journey - Devotional Modernism</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f8efeb",
+                        "surface-tint": "#7a573d",
+                        "secondary-container": "#ffbc6c",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdea4",
+                        "tertiary": "#4e3700",
+                        "background": "#FBF3E7", // Mapped to parchment base
+                        "inverse-primary": "#ebbd9d",
+                        "outline": "#82746c",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1f1b19",
+                        "primary-container": "#6b4a31",
+                        "secondary": "#C9A45C", // Temple Gold
+                        "secondary-fixed": "#ffddb9",
+                        "outline-variant": "#d4c3ba",
+                        "surface-bright": "#fff8f5",
+                        "on-tertiary-fixed": "#261900",
+                        "tertiary-fixed-dim": "#e8c176",
+                        "on-secondary-container": "#784a00",
+                        "on-background": "#1f1b19",
+                        "primary-fixed": "#ffdcc4",
+                        "surface-container": "#f5ece8",
+                        "secondary-fixed-dim": "#fcba69",
+                        "on-primary-fixed": "#2d1603",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#F5E9D6", // Softly colored surface
+                        "on-tertiary-container": "#e7bf75",
+                        "primary-fixed-dim": "#ebbd9d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e9e1dd",
+                        "on-surface-variant": "#50453d",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#2b1700",
+                        "on-tertiary-fixed-variant": "#5d4200",
+                        "on-primary-container": "#e9bb9b",
+                        "tertiary-container": "#694d0b",
+                        "on-primary-fixed-variant": "#5f4028",
+                        "surface-container-low": "#fbf2ee",
+                        "inverse-surface": "#34302d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#efe6e2",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "surface-dim": "#e1d8d4",
+                        "primary": "#D99B4E", // Saffron
+                        "surface-variant": "#e9e1dd",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF3E7;
+            /* Subtle parchment texture overlay using CSS */
+            background-image: 
+                radial-gradient(#C9A45C 1px, transparent 1px),
+                radial-gradient(#C9A45C 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-attachment: fixed;
+            /* Lowering opacity of the pattern */
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(251, 243, 231, 0.95); /* #FBF3E7 with 95% opacity to make dots very subtle */
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .card-border {
+            border: 1px solid rgba(201, 164, 92, 0.3); /* Temple Gold at 30% */
+        }
+        
+        .shadow-vaani {
+            box-shadow: 0px 10px 30px rgba(217, 155, 78, 0.4);
+        }
+        
+        .path-dotted {
+            border-left: 2px dotted #C9A45C; /* Temple Gold */
+        }
+        .path-solid {
+            border-left: 2px solid #D99B4E; /* Saffron */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen pb-28 relative">
+<!-- Background Ghosting Element (Vitthal placeholder) -->
+<div class="fixed top-0 right-0 w-64 h-96 opacity-10 pointer-events-none z-[-1]" data-alt="Subtle, faint outline illustration of Lord Vitthal standing on a brick, rendered in fine temple gold lines against a light parchment background, creating a sacred watermark effect." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhMrENnktWm-loOJQQqZ-t0d-1CrDMh4YdaHdyRxWGu5wX6tCEHIu9VoHtmI0wlbiJmUecYBWnXHk3V_lJjucAPKdZxNX4mIwONKukuc9bOw32ICcQZp9DvQsibfqZMjsHwEeJX7dMQ8ofr-Af3d3Q3VAe2SAGTQkx9B5K7JsYI1T0eoq1OfqOPSN4Df9qYWBvVP1UTZfWTSYFauH9xcOasV4DuXLI0ajE7xxD6L_cbB85GP9EQFWWFg')"></div>
+<!-- Top Navigation Container (Desktop) - Hidden on Mobile, per requirements -->
+<header class="hidden md:flex flex-col border-b border-outline-variant/30 sticky top-0 z-40 bg-surface/80 backdrop-blur-md px-margin-desktop py-4">
+<div class="flex justify-between items-center w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-high p-2 rounded-full transition-colors" data-icon="menu">menu</span>
+<h1 class="font-headline-md text-headline-md text-secondary">जय हरी विठ्ठल</h1>
+</div>
+<!-- Desktop Nav Items -->
+<nav class="flex gap-8 items-center">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span> मुखपृष्ठ
+                </a>
+<a class="font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary flex items-center gap-2 pb-1" href="#">
+<span class="material-symbols-outlined fill" data-icon="directions_walk">directions_walk</span> वारी
+                </a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span> अपडेट्स
+                </a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span> प्रोफाईल
+                </a>
+</nav>
+</div>
+</header>
+<!-- Mobile Header (Custom for this screen) -->
+<div class="md:hidden flex justify-between items-center px-margin-mobile h-16 w-full max-w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary-container card-border">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex items-center gap-2 text-primary font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined fill" data-icon="flag">flag</span>
+                वारी
+            </div>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary-container card-border relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<!-- Main Content Canvas -->
+<main class="px-margin-mobile md:px-margin-desktop max-w-3xl mx-auto pt-6 flex flex-col gap-lg">
+<!-- Page Header -->
+<header class="text-center md:text-left mb-2">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">वारीचा प्रवास</h2>
+<p class="font-body-md text-body-md text-primary mt-1 italic">“पंढरीच्या वाटेवर”</p>
+</header>
+<!-- Top Card: आजचा प्रवास (Today's Journey) -->
+<section class="bg-surface rounded-xl p-md card-border relative overflow-hidden">
+<!-- Decorative Flag -->
+<div class="absolute top-4 right-4 text-secondary/40">
+<span class="material-symbols-outlined text-4xl" data-icon="flag">flag</span>
+</div>
+<div class="flex items-center gap-2 text-primary mb-4">
+<span class="material-symbols-outlined fill" data-icon="flag">flag</span>
+<h3 class="font-headline-sm text-headline-sm font-bold">आजची वारी</h3>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 border-b border-secondary/20 pb-6 mb-4">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="text-5xl font-bold text-on-background">12.4</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-bold">km</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">आजचा प्रवास</p>
+</div>
+<div class="flex items-center gap-4 text-right">
+<span class="material-symbols-outlined text-3xl text-secondary opacity-50" data-icon="footprint">footprint</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">मुक्कामाकडे</p>
+<div class="flex items-baseline gap-1 justify-end">
+<span class="text-3xl font-bold text-primary">4.6</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">km</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">सध्याचे ठिकाण</p>
+<p class="font-body-md text-body-md font-bold text-on-background">माळशिरसजवळ</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">पुढचा मुक्काम</p>
+<p class="font-body-md text-body-md font-bold text-on-background flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="temple_hindu">temple_hindu</span>
+                        माळशिरस
+                    </p>
+</div>
+</div>
+</section>
+<!-- Map Snippet (Placeholder for actual map) -->
+<section class="rounded-xl overflow-hidden card-border h-64 relative bg-surface-container-low" data-alt="A detailed, topographical style map of the Pandharpur Wari route in Maharashtra. The map uses warm parchment tones, light greens, and subtle blues for rivers. A prominent dotted orange line marks the pilgrimage path from Alandi to Pandharpur. Small temple icons indicate stops. Bright outdoor lighting aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxcTv4nhXq--HyheqXcSXOT4f78JpxjvlrTUyib7Y-D2MrK7NAT4vSyqp0nWbRyt_Tc-o5bNz1t84dgyL-3uTHsfdTiSzqyIpTjVp8xaWlseBzVlzOsOiQWZNzImUzUPt4WKdiuvmdPRFv6Ybe1rRNWZ7AMXKaE-tG6SrWLx0o1EhBiru7rqoLxHofXYh0Ofj_oJyrbh-gP2WJMsiTX9xKRSEMg4NwmIwqfCGHBlvCcdZKoNn_MNllaw')">
+<!-- Overlay controls to make it look like a map UI -->
+<div class="absolute top-4 left-4 w-8 h-8 bg-surface rounded-full flex items-center justify-center card-border shadow-sm flex-col">
+<span class="text-[8px] font-bold text-on-surface-variant">N</span>
+<span class="material-symbols-outlined text-error text-sm rotate-45" data-icon="navigation">navigation</span>
+</div>
+<div class="absolute bottom-4 right-4 flex flex-col gap-2">
+<div class="bg-surface rounded-lg card-border shadow-sm flex flex-col">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant border-b border-secondary/20"><span class="material-symbols-outlined" data-icon="add">add</span></button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined" data-icon="remove">remove</span></button>
+</div>
+<button class="bg-surface rounded-full px-4 py-2 card-border shadow-sm flex items-center gap-2 font-label-sm text-label-sm text-on-background font-bold">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span> माझे ठिकाण
+                </button>
+</div>
+</section>
+<!-- Current Status Banner (Glassmorphism card) -->
+<section class="bg-surface/60 backdrop-blur-sm rounded-xl p-md card-border flex flex-col sm:flex-row gap-4 items-center relative overflow-hidden">
+<!-- Background Image for Banner -->
+<div class="absolute inset-0 z-0 opacity-30 object-cover w-full h-full" data-alt="A beautiful, panoramic wide shot illustration of Warkaris walking along a rural road towards a majestic temple in the distance. Lush green hills in the background. Soft, golden hour morning light. The scene feels reverent, peaceful, and traditional." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjVRWpx6yfl1UUKcfL3-8o6KNdFwGkie8t-gZOdd8b1xalkfXgrjo3wyHn7rWEURktb3h4Zr82r4pHRag2ftErniCNL8NvjqvLAg_6amApQFQ3LqOPkTSBYTy1hb604XAlrYA6g4XNK3CG2DmLyw1BZaXvWAGAmceac1wreGj074hPEYOFeLiLlFIQSZ1ltCkPgEiCw2L1C42ogtLWSXE7H3aDDucr2ufzHi5z7Hvu4g-Q922jkCm9jQ'); background-size: cover; background-position: right;"></div>
+<div class="relative z-10 w-full">
+<div class="flex items-center gap-2 mb-1">
+<div class="w-3 h-3 bg-green-600 rounded-full"></div>
+<p class="font-label-sm text-label-sm text-on-background">पालखी सध्या</p>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-green-800 mb-2">माळशिरसजवळ</h4>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-background">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="temple_hindu">temple_hindu</span>
+<span>पुढचा मुक्काम · माळशिरस</span>
+</div>
+</div>
+</section>
+<!-- JOURNEY TIMELINE -->
+<section class="bg-surface rounded-xl p-md card-border relative">
+<!-- Subtle footprint background watermark -->
+<div class="absolute right-4 top-1/3 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-9xl text-primary" data-icon="footprints">file_download_done</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-6">आजचा प्रवास</h3>
+<div class="ml-2">
+<!-- Timeline Item 1: Start (Completed) -->
+<div class="relative pl-8 pb-8 path-solid border-l-2 border-green-500">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-surface border-2 border-green-500 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[12px] text-green-500 font-bold" data-icon="check">check</span>
+</div>
+<div class="-mt-1">
+<h4 class="font-label-lg text-label-lg text-on-background font-bold">सुरुवात</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">आजचा प्रारंभ पूर्ण</p>
+</div>
+</div>
+<!-- Timeline Item 2: Current (Active) -->
+<div class="relative pl-8 pb-8 path-dotted">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-primary border-4 border-surface shadow-sm z-10"></div>
+<div class="-mt-1">
+<h4 class="font-label-lg text-label-lg text-on-background font-bold">सध्याचे ठिकाण</h4>
+<p class="font-body-md text-body-md text-error font-bold">माळशिरसजवळ</p>
+</div>
+</div>
+<!-- Timeline Item 3: Next Halt (Pending) -->
+<div class="relative pl-8 pb-8 path-dotted">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-surface border-2 border-primary z-10"></div>
+<div class="-mt-1 flex justify-between items-start">
+<div>
+<h4 class="font-label-lg text-label-lg text-on-background">पुढचा मुक्काम</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">माळशिरस</p>
+</div>
+<span class="font-label-sm text-label-sm text-error font-bold">4.6 km बाकी</span>
+</div>
+</div>
+<!-- Timeline Item 4: End (Pending) -->
+<div class="relative pl-8 pb-2">
+<div class="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-surface border-2 border-outline-variant z-10"></div>
+<div class="-mt-1">
+<h4 class="font-label-lg text-label-lg text-on-background">पुढील टप्पा</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">पुढचा प्रवास सुरू राहील</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Primary Action / Map Link -->
+<button class="w-full bg-surface rounded-xl p-md card-border flex items-center justify-between hover:bg-surface-container-high transition-colors text-left group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="map">map</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-background">संपूर्ण मार्ग पहा</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">देहू ते पंढरपूर संपूर्ण वारी मार्ग</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-2xl group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</main>
+<!-- Bottom Navigation Bar (Mobile) - Generated exactly from JSON -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-2 pb-4 h-20 bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-lg rounded-t-xl border-t border-outline-variant/20 shadow-[0px_-4px_20px_rgba(0,0,0,0.05)]">
+<!-- Item 1: मुखपृष्ठ (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">मुखपृष्ठ</span>
+</button>
+<!-- Item 2: वारी (Active) -->
+<button class="flex flex-col items-center justify-center text-secondary font-bold hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1 fill" data-icon="directions_walk">directions_walk</span>
+<span class="font-label-sm text-label-sm">वारी</span>
+</button>
+<!-- Item 3: Vaani / Mic (Special Center Button) -->
+<button class="flex flex-col items-center justify-center hover:text-primary transition-all bg-gradient-to-br from-secondary to-surface-tint rounded-full -translate-y-6 w-16 h-16 shadow-[0px_10px_30px_rgba(217,155,78,0.2)] text-white relative group">
+<!-- Adding a subtle pulsating ring for the mic -->
+<div class="absolute inset-0 rounded-full border-2 border-secondary/50 animate-ping opacity-20"></div>
+<span class="material-symbols-outlined text-3xl" data-icon="mic">mic</span>
+<!-- The text "Vaani" is positioned below the floating button -->
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute -bottom-6 whitespace-nowrap group-hover:text-primary transition-colors">Vaani<br/><span class="text-[10px]">फोनवर बोला</span></span>
+</button>
+<!-- Item 4: अपडेट्स (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1" data-icon="notifications">notifications</span>
+<span class="font-label-sm text-label-sm">अपडेट्स</span>
+</button>
+<!-- Item 5: प्रोफाईल (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all w-16">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">प्रोफाईल</span>
+</button>
+<!-- Decorative Footprints along the bottom edge of the nav -->
+<div class="absolute bottom-1 left-0 w-full flex justify-between px-4 opacity-20 pointer-events-none overflow-hidden h-4">
+<span class="material-symbols-outlined text-[10px] text-secondary" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary translate-y-1" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary translate-y-1" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary translate-y-1" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary translate-y-1" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary" data-icon="footprint">footprint</span>
+<span class="material-symbols-outlined text-[10px] text-secondary translate-y-1" data-icon="footprint">footprint</span>
+</div>
+</nav>
+</body></html>

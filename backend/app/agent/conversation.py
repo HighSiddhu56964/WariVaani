@@ -183,16 +183,15 @@ class ConversationManager:
 
             if any(w in normalized for w in ("रिंगण", "ringan")):
                 target_intent = Intent.GET_NEXT_RINGAN
-            elif any(w in normalized for w in ("मुक्काम", "थांबा", "पुढे")):
+            elif any(w in normalized for w in ("मुक्काम", "थांबा")):
                 target_intent = Intent.GET_NEXT_HALT
             elif "किती" in normalized:
                 target_intent = Intent.GET_PALKHI_ROUTE
             else:
-                target_intent = Intent.GET_PALKHI_LOCATION
+                target_intent = session.last_intent
 
-            session.last_intent = target_intent
             response = self._execute_palkhi_tool(target_intent, session, db)
-            return response or DATA_UNAVAILABLE, target_intent, False
+            return response or DATA_UNAVAILABLE, Intent.GET_PALKHI_LOCATION, False
 
         if session.step != Step.IDLE:
             return self._continue_flow(session, normalized, db)
@@ -209,13 +208,6 @@ class ConversationManager:
         # Palkhi queries requiring Palkhi context
         if intent in (Intent.GET_PALKHI_LOCATION, Intent.GET_NEXT_HALT, Intent.GET_NEXT_RINGAN, Intent.GET_PALKHI_ROUTE):
             session.last_intent = intent
-            if not session.selected_palkhi_id and not detected_pid:
-                # Ask user which Palkhi
-                session.step = Step.AWAITING_PALKHI_SELECTION
-                session.pending_palkhi_intent = intent
-                session.active_intent = intent
-                return "ज्ञानोबा माऊलींची पालखी की तुकाराम महाराजांची पालखी?", intent, True
-
             response = self._execute_palkhi_tool(intent, session, db)
             return response or DATA_UNAVAILABLE, intent, False
 
@@ -243,20 +235,28 @@ class ConversationManager:
             return missing_start_reply(is_female), intent, True
 
         if intent == Intent.GENERAL_CONVERSATION:
-            session.last_intent = intent
+            session.last_intent = Intent.UNKNOWN
             if "identity" in debug_hint:
-                return IDENTITY_REPLY, intent, False
+                return IDENTITY_REPLY, Intent.UNKNOWN, False
             elif "greeting_vithal" in debug_hint:
-                return GREETING_VITHAL_REPLY, intent, False
+                return GREETING_VITHAL_REPLY, Intent.UNKNOWN, False
             elif "greeting" in debug_hint:
-                return GREETING_REPLY, intent, False
+                return GREETING_REPLY, Intent.UNKNOWN, False
+            elif "goodbye" in debug_hint:
+                return FAREWELL, Intent.UNKNOWN, False
             elif "thanks" in debug_hint:
-                return THANKS_REPLY, intent, False
+                return THANKS_REPLY, Intent.UNKNOWN, False
             elif "help_request" in debug_hint:
-                return HELP_REPLY, intent, False
-            return IDENTITY_REPLY, intent, False
+                return HELP_REPLY, Intent.UNKNOWN, False
+            return GREETING_REPLY, Intent.UNKNOWN, False
 
         session.last_intent = Intent.UNKNOWN
+        # Handle greetings or goodbyes in natural language
+        if any(g in normalized for g in ("नमस्ते", "नमस्कार", "राम कृष्ण हरी", "जय हरी", "हॅलो", "hello", "hi")):
+            return GREETING_REPLY, Intent.UNKNOWN, False
+        if any(g in normalized for g in ("बाय", "गुडबाय", "bye", "goodbye", "पुन्हा भेटू")):
+            return FAREWELL, Intent.UNKNOWN, False
+
         if debug_hint.startswith("partial:"):
             topic = debug_hint.split(":", 1)[1]
             if topic == "पालखी":

@@ -19,8 +19,8 @@ WELCOME = "राम कृष्ण हरी! वारीवाणीमध�
 FAREWELL = "पुन्हा भेटू! जय हरी विठ्ठल!"
 
 # Grounded data unavailable fallback
-DATA_UNAVAILABLE = "सध्या याची खात्रीशीर माहिती उपलब्ध नाही."
-BACKEND_UNAVAILABLE = "सध्या याची खात्रीशीर माहिती उपलब्ध नाही."
+DATA_UNAVAILABLE = "सध्या ही माहिती उपलब्ध नाही."
+BACKEND_UNAVAILABLE = "सध्या ही माहिती उपलब्ध नाही."
 
 # Unclear speech / UNKNOWN intent variants (rotated to avoid repeating identical sentence)
 UNKNOWN_VARIANTS = [
