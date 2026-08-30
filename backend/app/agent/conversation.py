@@ -11,8 +11,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select
 
 from app.agent import tools
-from app.agent.intents import Intent
-from app.agent.normalizer import normalize
+from app.agent.intents import Intent, PalkhiEntity
+from app.agent.normalizer import normalize, detect_palkhi_entity
 from app.agent.response_style import (
     DATA_UNAVAILABLE,
     GREETING_REPLY,
@@ -21,12 +21,22 @@ from app.agent.response_style import (
     IDENTITY_REPLY,
     MISSING_CANCELLED,
     THANKS_REPLY,
+    LOST_ITEM_START,
+    FOUND_ITEM_START,
+    ITEM_ASK_COLOR,
+    ITEM_ASK_LOCATION_LOST,
+    ITEM_ASK_LOCATION_FOUND,
+    ITEM_ASK_CONTACT,
+    ITEM_CANCELLED,
+    PALKHI_CLARIFICATION,
     get_unknown_response,
     missing_age_reply,
     missing_clothing_reply,
     missing_confirm_reply,
     missing_location_reply,
     missing_start_reply,
+    lost_item_confirm_reply,
+    found_item_confirm_reply,
     partial_recognition_reply,
 )
 from app.agent.router import intent_router
@@ -44,6 +54,20 @@ class Step(str, Enum):
     CONFIRMATION = "CONFIRMATION"
     AWAITING_MEDICAL_LOCATION = "AWAITING_MEDICAL_LOCATION"
 
+    # Lost Item Flow Steps
+    ASK_LOST_ITEM_TYPE = "ASK_LOST_ITEM_TYPE"
+    ASK_LOST_ITEM_COLOR = "ASK_LOST_ITEM_COLOR"
+    ASK_LOST_ITEM_LOCATION = "ASK_LOST_ITEM_LOCATION"
+    ASK_LOST_ITEM_CONTACT = "ASK_LOST_ITEM_CONTACT"
+    CONFIRM_LOST_ITEM = "CONFIRM_LOST_ITEM"
+
+    # Found Item Flow Steps
+    ASK_FOUND_ITEM_TYPE = "ASK_FOUND_ITEM_TYPE"
+    ASK_FOUND_ITEM_COLOR = "ASK_FOUND_ITEM_COLOR"
+    ASK_FOUND_ITEM_LOCATION = "ASK_FOUND_ITEM_LOCATION"
+    ASK_FOUND_ITEM_CONTACT = "ASK_FOUND_ITEM_CONTACT"
+    CONFIRM_FOUND_ITEM = "CONFIRM_FOUND_ITEM"
+
 
 class SessionState:
     def __init__(self, session_id: str):
@@ -52,7 +76,9 @@ class SessionState:
         self.active_intent = Intent.UNKNOWN
         self.data: Dict[str, Any] = {}
         self.last_intent = Intent.UNKNOWN
+        self.selected_palkhi: Optional[PalkhiEntity] = None
         self.selected_palkhi_id: Optional[int] = None
+        self.awaiting_palkhi_selection: bool = False
         self.pending_palkhi_intent: Optional[Intent] = None
         self.last_normalized = ""
         self.last_confidence = 0.0
@@ -65,6 +91,7 @@ class SessionState:
         self.step = Step.IDLE
         self.active_intent = Intent.UNKNOWN
         self.pending_palkhi_intent = None
+        self.awaiting_palkhi_selection = False
         self.data.clear()
 
 
@@ -85,7 +112,7 @@ def _is_palkhi_followup(text: str) -> bool:
 
 
 def _extract_age(text: str):
-    converted = text.translate(str.maketrans("०१२३४५६७८९", "0123456789"))
+    converted = text.translate(str.maketrans("०१२३४५६ devastation", "0123456789"))
     digits = re.findall(r"\d+", converted)
     if digits:
         return int(digits[0])
@@ -95,17 +122,16 @@ def _extract_age(text: str):
     return text
 
 
-def _detect_palkhi_id_from_text(text: str, db: Session) -> Optional[int]:
-    t = text.lower()
-    if "तुकाराम" in t or "तुकोबा" in t or "tukaram" in t:
-        p = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Tukaram%"))).first()
-        if p:
-            return p.id
-    if "ज्ञानेश्वर" in t or "ज्ञानोबा" in t or "माऊली" in t or "dnyaneshwar" in t or "dnyanoba" in t:
+def _resolve_and_set_palkhi_entity(session: SessionState, entity: PalkhiEntity, db: Session) -> None:
+    session.selected_palkhi = entity
+    if entity == PalkhiEntity.DNYANESHWAR:
         p = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Dnyaneshwar%"))).first()
         if p:
-            return p.id
-    return None
+            session.selected_palkhi_id = p.id
+    elif entity == PalkhiEntity.TUKARAM:
+        p = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Tukaram%"))).first()
+        if p:
+            session.selected_palkhi_id = p.id
 
 
 class ConversationManager:
@@ -143,21 +169,26 @@ class ConversationManager:
 
     def _execute_palkhi_tool(self, intent: Intent, session: SessionState, db: Session) -> str:
         pid = session.selected_palkhi_id
+        entity = session.selected_palkhi
         if intent == Intent.GET_PALKHI_LOCATION:
-            return self._backend_call(session, "get_palkhi_location", tools.get_palkhi_location_tool, db, pid)
+            return self._backend_call(session, "get_palkhi_location", tools.get_palkhi_location_tool, db, pid, entity)
         elif intent == Intent.GET_NEXT_HALT:
-            return self._backend_call(session, "get_next_halt", tools.get_next_halt_tool, db, pid)
+            return self._backend_call(session, "get_next_halt", tools.get_next_halt_tool, db, pid, entity)
         elif intent == Intent.GET_NEXT_RINGAN:
-            return self._backend_call(session, "get_next_ringan", tools.get_next_ringan_tool, db, pid)
+            return self._backend_call(session, "get_next_ringan", tools.get_next_ringan_tool, db, pid, entity)
         elif intent == Intent.GET_PALKHI_ROUTE:
-            return self._backend_call(session, "get_palkhi_route_summary", tools.get_palkhi_route_summary_tool, db, pid)
+            return self._backend_call(session, "get_palkhi_route_summary", tools.get_palkhi_route_summary_tool, db, pid, entity)
         return DATA_UNAVAILABLE
 
     def process_message(
         self, session_id: str, message: str, db: Session
     ) -> Tuple[str, Intent, bool]:
         session = self.get_session(session_id)
-        is_name_step = session.step in (Step.ASK_NAME, Step.ASK_CLOTHING, Step.ASK_LOCATION)
+        is_name_step = session.step in (
+            Step.ASK_NAME, Step.ASK_CLOTHING, Step.ASK_LOCATION,
+            Step.ASK_LOST_ITEM_TYPE, Step.ASK_LOST_ITEM_COLOR, Step.ASK_LOST_ITEM_LOCATION,
+            Step.ASK_FOUND_ITEM_TYPE, Step.ASK_FOUND_ITEM_COLOR, Step.ASK_FOUND_ITEM_LOCATION
+        )
         normalized = normalize(message.strip(), is_proper_name=is_name_step)
         session.last_normalized = normalized
         session.last_confidence = 1.0 if session.step != Step.IDLE else 0.0
@@ -169,17 +200,23 @@ class ConversationManager:
             session.last_debug_hint = "empty input"
             return get_unknown_response(), Intent.UNKNOWN, False
 
-        # --- Contextual Palkhi Follow-ups ---
+        # Detect Palkhi entity from user input if present
+        detected_entity = detect_palkhi_entity(message)
+        if detected_entity:
+            _resolve_and_set_palkhi_entity(session, detected_entity, db)
+
+        # --- Active Step / Form Continuation ---
+        if session.step != Step.IDLE:
+            return self._continue_flow(session, normalized, db)
+
+        # --- Contextual Palkhi Follow-ups (when session already has selected_palkhi) ---
         if (
-            session.step == Step.IDLE
-            and session.last_intent in (Intent.GET_PALKHI_LOCATION, Intent.GET_NEXT_HALT, Intent.GET_NEXT_RINGAN, Intent.GET_PALKHI_ROUTE)
+            session.last_intent in (Intent.GET_PALKHI_LOCATION, Intent.GET_NEXT_HALT, Intent.GET_NEXT_RINGAN, Intent.GET_PALKHI_ROUTE)
             and _is_palkhi_followup(normalized)
+            and session.selected_palkhi is not None
         ):
             session.last_confidence = 0.95
             session.last_debug_hint = "context:palkhi_followup"
-            detected_pid = _detect_palkhi_id_from_text(normalized, db)
-            if detected_pid:
-                session.selected_palkhi_id = detected_pid
 
             if any(w in normalized for w in ("रिंगण", "ringan")):
                 target_intent = Intent.GET_NEXT_RINGAN
@@ -191,22 +228,23 @@ class ConversationManager:
                 target_intent = session.last_intent
 
             response = self._execute_palkhi_tool(target_intent, session, db)
-            return response or DATA_UNAVAILABLE, Intent.GET_PALKHI_LOCATION, False
-
-        if session.step != Step.IDLE:
-            return self._continue_flow(session, normalized, db)
+            session.last_intent = target_intent
+            return response or DATA_UNAVAILABLE, target_intent, False
 
         intent, confidence, debug_hint = intent_router.classify(normalized)
         session.last_confidence = confidence
         session.last_debug_hint = debug_hint
 
-        # Check explicit Palkhi mention in query
-        detected_pid = _detect_palkhi_id_from_text(normalized, db)
-        if detected_pid:
-            session.selected_palkhi_id = detected_pid
-
-        # Palkhi queries requiring Palkhi context
+        # Palkhi queries requiring Palkhi entity context
         if intent in (Intent.GET_PALKHI_LOCATION, Intent.GET_NEXT_HALT, Intent.GET_NEXT_RINGAN, Intent.GET_PALKHI_ROUTE):
+            if session.selected_palkhi is None:
+                # Ask clarification question
+                session.step = Step.AWAITING_PALKHI_SELECTION
+                session.awaiting_palkhi_selection = True
+                session.pending_palkhi_intent = intent
+                session.last_intent = intent
+                return PALKHI_CLARIFICATION, intent, True
+
             session.last_intent = intent
             response = self._execute_palkhi_tool(intent, session, db)
             return response or DATA_UNAVAILABLE, intent, False
@@ -233,6 +271,18 @@ class ConversationManager:
                 word in normalized for word in ("मुलगी", "आई", "महिला", "ती", "बहीण")
             )
             return missing_start_reply(is_female), intent, True
+
+        if intent == Intent.REPORT_LOST_ITEM:
+            session.step = Step.ASK_LOST_ITEM_TYPE
+            session.active_intent = intent
+            session.last_intent = intent
+            return LOST_ITEM_START, intent, True
+
+        if intent == Intent.REPORT_FOUND_ITEM:
+            session.step = Step.ASK_FOUND_ITEM_TYPE
+            session.active_intent = intent
+            session.last_intent = intent
+            return FOUND_ITEM_START, intent, True
 
         if intent == Intent.GENERAL_CONVERSATION:
             session.last_intent = Intent.UNKNOWN
@@ -281,27 +331,26 @@ class ConversationManager:
             return "ठीक आहे. सांगा, आणखी कशी मदत करू?", Intent.UNKNOWN, False
 
         # 2. Palkhi Selection follow-up state
-        if session.step == Step.AWAITING_PALKHI_SELECTION:
-            detected_pid = _detect_palkhi_id_from_text(text, db)
-            if not detected_pid:
-                if any(w in text for w in ("१", "पहिली", "पाहिली", "प्रथम")):
-                    p = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Dnyaneshwar%"))).first()
-                    detected_pid = p.id if p else 1
-                elif any(w in text for w in ("२", "दुसरी")):
-                    p = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Tukaram%"))).first()
-                    detected_pid = p.id if p else 2
+        if session.step == Step.AWAITING_PALKHI_SELECTION or session.awaiting_palkhi_selection:
+            detected_entity = detect_palkhi_entity(text)
+            if not detected_entity:
+                if any(w in text for w in ("१", "1", "पहिली", "पाहिली", "प्रथम", "dnyaneshwar")):
+                    detected_entity = PalkhiEntity.DNYANESHWAR
+                elif any(w in text for w in ("२", "2", "दुसरी", "tukaram")):
+                    detected_entity = PalkhiEntity.TUKARAM
 
-            if detected_pid:
-                session.selected_palkhi_id = detected_pid
+            if detected_entity:
+                _resolve_and_set_palkhi_entity(session, detected_entity, db)
                 pending_intent = session.pending_palkhi_intent or Intent.GET_PALKHI_LOCATION
                 session.reset_flow()
                 session.last_intent = pending_intent
                 response = self._execute_palkhi_tool(pending_intent, session, db)
                 return response or DATA_UNAVAILABLE, pending_intent, False
 
-            # If user didn't select Palkhi but asked something else:
+            # If user didn't specify a Palkhi but asked something else, exit Palkhi disambiguation state and process message afresh
             session.reset_flow()
             return self.process_message(session.session_id, text, db)
+
 
         # 3. Medical location state check
         if session.step == Step.AWAITING_MEDICAL_LOCATION:
@@ -365,8 +414,83 @@ class ConversationManager:
             session.reset_flow()
             return MISSING_CANCELLED, intent, False
 
+        # 5. Lost Item Flow
+        if session.step == Step.ASK_LOST_ITEM_TYPE:
+            session.data["item_type"] = text
+            session.step = Step.ASK_LOST_ITEM_COLOR
+            return ITEM_ASK_COLOR, Intent.REPORT_LOST_ITEM, True
+
+        if session.step == Step.ASK_LOST_ITEM_COLOR:
+            session.data["color"] = text
+            session.step = Step.ASK_LOST_ITEM_LOCATION
+            return ITEM_ASK_LOCATION_LOST, Intent.REPORT_LOST_ITEM, True
+
+        if session.step == Step.ASK_LOST_ITEM_LOCATION:
+            session.data["location"] = text
+            session.step = Step.ASK_LOST_ITEM_CONTACT
+            return ITEM_ASK_CONTACT, Intent.REPORT_LOST_ITEM, True
+
+        if session.step == Step.ASK_LOST_ITEM_CONTACT:
+            session.data["contact"] = text
+            session.step = Step.CONFIRM_LOST_ITEM
+            return lost_item_confirm_reply(
+                session.data.get("item_type", "वस्तू"),
+                session.data.get("color", "माहिती नाही"),
+                session.data.get("location", "वारी मार्ग"),
+            ), Intent.REPORT_LOST_ITEM, True
+
+        if session.step == Step.CONFIRM_LOST_ITEM:
+            affirmative = ("हो", "बरोबर", "होय", "yes", "योग्य", "correct", "ठीक")
+            if any(word in text.lower() for word in affirmative):
+                ticket = self._backend_call(
+                    session, "create_lost_found_report",
+                    tools.create_lost_found_report_tool, db, dict(session.data), "LOST",
+                )
+                session.reset_flow()
+                return ticket or DATA_UNAVAILABLE, Intent.REPORT_LOST_ITEM, False
+            session.reset_flow()
+            return ITEM_CANCELLED, Intent.REPORT_LOST_ITEM, False
+
+        # 6. Found Item Flow
+        if session.step == Step.ASK_FOUND_ITEM_TYPE:
+            session.data["item_type"] = text
+            session.step = Step.ASK_FOUND_ITEM_COLOR
+            return ITEM_ASK_COLOR, Intent.REPORT_FOUND_ITEM, True
+
+        if session.step == Step.ASK_FOUND_ITEM_COLOR:
+            session.data["color"] = text
+            session.step = Step.ASK_FOUND_ITEM_LOCATION
+            return ITEM_ASK_LOCATION_FOUND, Intent.REPORT_FOUND_ITEM, True
+
+        if session.step == Step.ASK_FOUND_ITEM_LOCATION:
+            session.data["location"] = text
+            session.step = Step.ASK_FOUND_ITEM_CONTACT
+            return ITEM_ASK_CONTACT, Intent.REPORT_FOUND_ITEM, True
+
+        if session.step == Step.ASK_FOUND_ITEM_CONTACT:
+            session.data["contact"] = text
+            session.step = Step.CONFIRM_FOUND_ITEM
+            return found_item_confirm_reply(
+                session.data.get("item_type", "वस्तू"),
+                session.data.get("color", "माहिती नाही"),
+                session.data.get("location", "वारी मार्ग"),
+            ), Intent.REPORT_FOUND_ITEM, True
+
+        if session.step == Step.CONFIRM_FOUND_ITEM:
+            affirmative = ("हो", "बरोबर", "होय", "yes", "योग्य", "correct", "ठीक")
+            if any(word in text.lower() for word in affirmative):
+                ticket = self._backend_call(
+                    session, "create_lost_found_report",
+                    tools.create_lost_found_report_tool, db, dict(session.data), "FOUND",
+                )
+                session.reset_flow()
+                return ticket or DATA_UNAVAILABLE, Intent.REPORT_FOUND_ITEM, False
+            session.reset_flow()
+            return ITEM_CANCELLED, Intent.REPORT_FOUND_ITEM, False
+
         session.reset_flow()
         return get_unknown_response(), Intent.UNKNOWN, False
+
 
 
 conversation_manager = ConversationManager()

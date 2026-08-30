@@ -9,6 +9,7 @@ from app.database.connection import SessionLocal
 from app.models.palkhi import Palkhi, RouteCheckpoint
 from app.models.facility import Facility
 from app.models.missing_person import MissingPerson
+from app.models.lost_item import LostItemReport
 
 
 DNYANESHWAR_ROUTE = [
@@ -140,15 +141,152 @@ def seed_facilities(db: Session):
     print("[OK] Seeded facilities data.")
 
 
+def seed_missing_persons(db: Session):
+    sample_reports = [
+        {
+            "ticket_id": "WR-10001",
+            "name": "रामचंद्र मारुती जगताप",
+            "age": 68,
+            "clothing": "पांढरा कुर्ता, धोती, डोक्यावर पांढरी टोपी",
+            "description": "सासवड मुक्कामाजवळ वारकरी गर्दीत ताटातूट झाली",
+            "last_seen_location": "सासवड",
+            "contact": "+91 98220 12345",
+            "source": "VOICE_CALL",
+            "status": "OPEN",
+        },
+        {
+            "ticket_id": "WR-10002",
+            "name": "आनंदीबाई सोपान शिंदे",
+            "age": 62,
+            "clothing": "हिरवी नऊवारी साडी, गळ्यात तुळशीची माळ",
+            "description": "जेजुरी मंदिर पायऱ्यांजवळ चुकल्या",
+            "last_seen_location": "जेजुरी",
+            "contact": "+91 94231 67890",
+            "source": "MOBILE_APP",
+            "status": "OPEN",
+        },
+        {
+            "ticket_id": "WR-10003",
+            "name": "गणेश पांडुरंग मोरे",
+            "age": 10,
+            "clothing": "निळा टी-शर्ट, काळी हाफ पँट",
+            "description": "लोणंद बस स्थानकाजवळ पालखी दर्शनावेळी मागे राहिला",
+            "last_seen_location": "लोणंद",
+            "contact": "+91 98900 11223",
+            "source": "VOICE_CALL",
+            "status": "UNDER_REVIEW",
+        },
+        {
+            "ticket_id": "WR-10004",
+            "name": "सखुबाई विठ्ठल ढमढेरे",
+            "age": 71,
+            "clothing": "लाल साडी, हातात पितळी तांब्या",
+            "description": "हडपसर रिंगण पाहताना पुढे गेल्या",
+            "last_seen_location": "हडपसर",
+            "contact": "+91 97654 32109",
+            "source": "MOBILE_APP",
+            "status": "RESOLVED",
+        },
+    ]
+
+    for item in sample_reports:
+        existing = db.scalars(select(MissingPerson).where(MissingPerson.ticket_id == item["ticket_id"])).first()
+        if not existing:
+            db.add(MissingPerson(
+                ticket_id=item["ticket_id"],
+                name=item["name"],
+                age=item["age"],
+                clothing=item["clothing"],
+                description=item["description"],
+                last_seen_location=item["last_seen_location"],
+                last_seen_time=datetime.now(timezone.utc),
+                contact=item["contact"],
+                source=item["source"],
+                status=item["status"]
+            ))
+    db.commit()
+    print("[OK] Seeded missing persons data.")
+
+
+def seed_lost_found_reports(db: Session):
+    sample_items = [
+        {
+            "ticket_id": "LI-10001",
+            "report_type": "LOST",
+            "item_type": "पिशवी / काळी बॅग",
+            "color": "काळी",
+            "description": "कातडी पाकीट आणि काही महत्त्वाचे दस्तऐवज असलेली काळी पिशवी",
+            "location": "सासवड मुक्काम",
+            "contact_number": "+91 98221 00112",
+            "source": "VOICE_CALL",
+            "status": "OPEN",
+        },
+        {
+            "ticket_id": "LI-10002",
+            "report_type": "LOST",
+            "item_type": "मोबाईल फोन (स्मार्टफोन)",
+            "color": "निळा",
+            "description": "सॅमसंग कंपनीचा स्मार्टफोन, निळ्या रंगाचे कव्हर",
+            "location": "जेजुरी मंदिर परिसर",
+            "contact_number": "+91 94230 44556",
+            "source": "MOBILE_APP",
+            "status": "UNDER_REVIEW",
+        },
+        {
+            "ticket_id": "FI-10001",
+            "report_type": "FOUND",
+            "item_type": "चामड्याचे पाकीट",
+            "color": "ब्राऊन / तपकिरी",
+            "description": "तपकिरी रंगाचे पाकीट, त्यामध्ये आधार कार्ड व थोडे पैसे आहेत",
+            "location": "लोणंद रिंगण मैदान",
+            "contact_number": "+91 97650 99887",
+            "source": "VOICE_CALL",
+            "status": "OPEN",
+        },
+        {
+            "ticket_id": "FI-10002",
+            "report_type": "FOUND",
+            "item_type": "चष्मा व डबा",
+            "color": "सोनेरी",
+            "description": "सोन्यासारख्या फ्रेमचा चष्मा आणि प्लास्टिक डबा",
+            "location": "हडपसर",
+            "contact_number": "+91 98901 22334",
+            "source": "MOBILE_APP",
+            "status": "RESOLVED",
+        },
+    ]
+
+    for item in sample_items:
+        existing = db.scalars(select(LostItemReport).where(LostItemReport.ticket_id == item["ticket_id"])).first()
+        if not existing:
+            db.add(LostItemReport(
+                ticket_id=item["ticket_id"],
+                report_type=item["report_type"],
+                item_type=item["item_type"],
+                color=item["color"],
+                description=item["description"],
+                location=item["location"],
+                contact_number=item["contact_number"],
+                source=item["source"],
+                status=item["status"]
+            ))
+    db.commit()
+    print("[OK] Seeded Lost & Found data.")
+
+
 def seed_database():
     """Populate database for both Palkhis and route checkpoints."""
     from app.database.connection import engine
     from app.models import Base
+    from sqlalchemy import text
 
     Base.metadata.create_all(bind=engine)
     db: Session = SessionLocal()
     try:
         print("[START] Starting WariVaani Multi-Palkhi database seeding...")
+        db.execute(text("ALTER TABLE missing_person ADD COLUMN IF NOT EXISTS source VARCHAR(50) DEFAULT 'VOICE_CALL' NOT NULL;"))
+        db.commit()
+
         seed_palkhi_and_checkpoints(
             db,
             name="Sant Dnyaneshwar Maharaj Palkhi",
@@ -166,6 +304,8 @@ def seed_database():
             default_current_seq=4  # Loni Kalbhor
         )
         seed_facilities(db)
+        seed_missing_persons(db)
+        seed_lost_found_reports(db)
         print("[SUCCESS] Multi-Palkhi Database seeding completed successfully!")
     except Exception as e:
         db.rollback()

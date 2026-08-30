@@ -17,6 +17,7 @@ class MissingPerson(Base):
     last_seen_location: Mapped[str] = mapped_column(String(255), nullable=False)
     last_seen_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     contact: Mapped[str] = mapped_column(String(100), nullable=False)
+    source: Mapped[str] = mapped_column(String(50), default="VOICE_CALL", nullable=False)
     status: Mapped[str] = mapped_column(String(50), default="OPEN", nullable=False, index=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False

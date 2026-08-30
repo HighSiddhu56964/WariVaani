@@ -53,6 +53,7 @@ def create_missing_person_report(
         last_seen_location=payload.last_seen_location,
         last_seen_time=payload.last_seen_time or datetime.now(timezone.utc),
         contact=payload.contact,
+        source=payload.source or "MOBILE_APP",
         status="OPEN"
     )
 
@@ -66,8 +67,10 @@ def create_missing_person_report(
         "name": db_missing_person.name,
         "age": db_missing_person.age,
         "clothing": db_missing_person.clothing,
+        "description": db_missing_person.description,
         "last_seen_location": db_missing_person.last_seen_location,
         "contact": db_missing_person.contact,
+        "source": db_missing_person.source,
         "status": db_missing_person.status,
         "created_at": db_missing_person.created_at.isoformat()
     }

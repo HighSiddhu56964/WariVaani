@@ -48,11 +48,26 @@ class KeywordIntentRouter(BaseIntentRouter):
         "medical", "hospital", "doctor", "ambulance", "medicine",
     ]
 
+    ITEM_KEYWORDS = [
+        "बॅग", "पाकीट", "फोन", "मोबाईल", "पर्स", "सामान", "वस्तू", "चष्मा", "घड्याळ",
+        "bag", "wallet", "phone", "mobile", "purse", "item", "watch"
+    ]
+
+    FOUND_ITEM_KEYWORDS = [
+        "सापडली आहे", "सापडली", "सापडलं आहे", "सापडलं", "सापडला", "गवसली", "गवसलं", "found", "found item"
+    ]
+
+    LOST_ITEM_KEYWORDS = [
+        "बॅग हरवली", "पाकीट हरवलं", "फोन हरवला", "वस्तू हरवली", "सामान हरवलं",
+        "माझी बॅग", "माझं पाकीट", "माझा फोन", "माझी वस्तू", "माझं सामान",
+        "हरवली", "हरवलं", "हरवला", "सापडत नाही", "lost item", "lost bag"
+    ]
+
     MISSING_PERSON_KEYWORDS = [
-        "हरवला", "हरवली", "हरवले", "सापडत नाही", "बेपत्ता",
-        "मुलगा", "मुलगी", "वडील दिसत नाही", "आई दिसत नाही",
-        "दिसत नाही", "शोधत आहे",
-        "missing", "lost",
+        "माणूस हरवला", "मुलगा हरवला", "मुलगी हरवली", "वडील दिसत नाही", "आई दिसत नाही",
+        "माणूस बेपत्ता", "बेपत्ता", "मुलगा", "मुलगी", "वडील", "आई",
+        "माझा मुलगा", "माझी मुलगी", "शोधत आहे",
+        "missing", "person lost",
     ]
 
     GENERAL_CHAT_KEYWORDS = [
@@ -96,13 +111,32 @@ class KeywordIntentRouter(BaseIntentRouter):
         normalized = normalize(message)
         text = normalized.lower()
 
-        # --- 1. Missing person (highest priority for safety) ---
+        # --- 0A. Found Item Intent ---
+        for kw in self.FOUND_ITEM_KEYWORDS:
+            if kw in text:
+                return Intent.REPORT_FOUND_ITEM, 1.0, f"exact:{kw}"
+
+        # --- 0B. Lost Item Intent (when item or lost item keywords match) ---
+        for kw in self.LOST_ITEM_KEYWORDS[:10]:
+            if kw in text:
+                return Intent.REPORT_LOST_ITEM, 1.0, f"exact:{kw}"
+        has_item = any(ikw in text for ikw in self.ITEM_KEYWORDS)
+        if has_item and any(lkw in text for lkw in ["हरवली", "हरवलं", "हरवला", "माझी", "माझं", "lost"]):
+            return Intent.REPORT_LOST_ITEM, 0.95, "item+lost"
+
+        # --- 1. Missing person (for missing people) ---
         for kw in self.MISSING_PERSON_KEYWORDS:
             if kw in text:
                 return Intent.REPORT_MISSING_PERSON, 1.0, f"exact:{kw}"
         for kw in self.MISSING_PERSON_KEYWORDS[:8]:  # fuzzy only first N
             if fuzzy_contains_keyword(text, kw, self.FUZZY_THRESHOLD):
                 return Intent.REPORT_MISSING_PERSON, 0.82, f"fuzzy:{kw}"
+
+        # General fallback if someone says "हरवला" without item
+        if "हरवला" in text or "हरवली" in text or "हरवले" in text:
+            if has_item:
+                return Intent.REPORT_LOST_ITEM, 0.90, "fallback:item_lost"
+            return Intent.REPORT_MISSING_PERSON, 0.85, "fallback:missing_person"
 
         # --- 2. Ringan Intent ---
         for kw in self.RINGAN_KEYWORDS:

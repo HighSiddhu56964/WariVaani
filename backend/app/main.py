@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.routes import health, palkhi, facilities, missing_person, agent, dashboard, demo
+from app.api.routes import health, palkhi, facilities, missing_person, lost_found, agent, dashboard, demo
 from app.services.websocket_manager import ws_manager
 
 app = FastAPI(
@@ -58,6 +58,7 @@ app.include_router(health.router, prefix=settings.API_V1_STR)
 app.include_router(palkhi.router, prefix=settings.API_V1_STR)
 app.include_router(facilities.router, prefix=settings.API_V1_STR)
 app.include_router(missing_person.router, prefix=settings.API_V1_STR)
+app.include_router(lost_found.router, prefix=settings.API_V1_STR)
 app.include_router(agent.router, prefix=settings.API_V1_STR)
 app.include_router(dashboard.router, prefix=settings.API_V1_STR)
 app.include_router(demo.router, prefix=settings.API_V1_STR)
@@ -66,6 +67,7 @@ app.include_router(demo.router, prefix=settings.API_V1_STR)
 app.include_router(palkhi.router)
 app.include_router(facilities.router)
 app.include_router(missing_person.router)
+app.include_router(lost_found.router)
 app.include_router(agent.router)
 app.include_router(dashboard.router)
 app.include_router(demo.router)

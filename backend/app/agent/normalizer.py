@@ -148,13 +148,53 @@ def fuzzy_contains_keyword(text: str, keyword: str, threshold: int = 80) -> bool
     return False
 
 
-def get_context_hint(normalized_text: str) -> Optional[str]:
+from app.agent.intents import PalkhiEntity
+
+DNYANESHWAR_SYNONYMS = [
+    "ज्ञानेश्वर", "ज्ञानेश्वर महाराज", "संत ज्ञानेश्वर", "ज्ञानोबा", "ज्ञानोबा माऊली",
+    "माऊली", "माऊलींची", "माउली", "माउलींची", "द्यानेश्वर", "न्यानेश्वर", "न्यानेेश्वर",
+    "ध्यानेश्वर", "जाणेश्वर", "dnyaneshwar", "nyaneshwar", "gyaneshwar", "mauli", "mauli palkhi",
+    "ज्ञानोबांची", "माऊलींच्या", "ज्ञानदेव"
+]
+
+TUKARAM_SYNONYMS = [
+    "तुकाराम", "तुकाराम महाराज", "संत तुकाराम", "तुकोबा", "तुकोबा महाराज",
+    "तुकोबांची", "देहूची पालखी", "tukaram", "tukaram maharaj", "tukoba",
+    "तुकारामांची", "तुकोबांच्या"
+]
+
+
+def detect_palkhi_entity(raw_text: str) -> Optional[PalkhiEntity]:
     """
-    Return a domain hint string for debugging when a keyword is fuzzy-matched
-    but not exact-matched.  Returns None when nothing notable was detected.
+    Normalizes input and classifies utterance into canonical PalkhiEntity (DNYANESHWAR or TUKARAM).
+    Returns None if no specific Palkhi is identified.
     """
-    text = normalized_text.lower()
-    for kw in DOMAIN_KEYWORDS:
-        if fuzzy_contains_keyword(text, kw, threshold=75) and kw.lower() not in text:
-            return f"fuzzy-matched '{kw}'"
+    if not raw_text or not raw_text.strip():
+        return None
+
+    cleaned = normalize(raw_text, is_proper_name=False).lower()
+    raw_lower = raw_text.lower()
+
+    # 1. Exact / Substring match on Tukaram terms first
+    for term in TUKARAM_SYNONYMS:
+        t_clean = term.lower()
+        if t_clean in cleaned or t_clean in raw_lower:
+            return PalkhiEntity.TUKARAM
+
+    # 2. Exact / Substring match on Dnyaneshwar terms
+    for term in DNYANESHWAR_SYNONYMS:
+        t_clean = term.lower()
+        if t_clean in cleaned or t_clean in raw_lower:
+            return PalkhiEntity.DNYANESHWAR
+
+    # 3. Fuzzy matching fallback
+    for term in TUKARAM_SYNONYMS:
+        if fuzzy_contains_keyword(cleaned, term, threshold=78):
+            return PalkhiEntity.TUKARAM
+
+    for term in DNYANESHWAR_SYNONYMS:
+        if fuzzy_contains_keyword(cleaned, term, threshold=78):
+            return PalkhiEntity.DNYANESHWAR
+
     return None
+

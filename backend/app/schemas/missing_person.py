@@ -11,6 +11,7 @@ class MissingPersonCreate(BaseModel):
     last_seen_location: str = Field(..., min_length=2, max_length=255, description="Checkpoint or location name where last seen")
     last_seen_time: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc), description="Timestamp when last seen")
     contact: str = Field(..., min_length=5, max_length=100, description="Contact phone number or details of guardian/reporter")
+    source: Optional[str] = Field("MOBILE_APP", description="Reporting source: VOICE_CALL or MOBILE_APP")
 
 
 class MissingPersonStatusUpdate(BaseModel):
@@ -36,6 +37,7 @@ class MissingPersonResponse(BaseModel):
     last_seen_location: str
     last_seen_time: datetime
     contact: str
+    source: str = "VOICE_CALL"
     status: str
     created_at: datetime
 

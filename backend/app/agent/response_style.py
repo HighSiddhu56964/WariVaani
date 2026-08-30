@@ -22,6 +22,10 @@ FAREWELL = "पुन्हा भेटू! जय हरी विठ्ठल
 DATA_UNAVAILABLE = "सध्या ही माहिती उपलब्ध नाही."
 BACKEND_UNAVAILABLE = "सध्या ही माहिती उपलब्ध नाही."
 
+# Palkhi Disambiguation Clarification Prompt
+PALKHI_CLARIFICATION = "तुम्ही कोणत्या पालखीबद्दल विचारत आहात — ज्ञानेश्वर माऊलींची पालखी की संत तुकाराम महाराजांची पालखी?"
+
+
 # Unclear speech / UNKNOWN intent variants (rotated to avoid repeating identical sentence)
 UNKNOWN_VARIANTS = [
     "माफ करा, मला नीट समजलं नाही. पुन्हा एकदा सांगाल का?",
@@ -69,6 +73,17 @@ MISSING_CONFIRM = (
 )
 MISSING_CANCELLED = "ठीक आहे, नोंदणी रद्द केली. पुन्हा सांगितलं तर मदत करेन."
 
+# Lost & Found flow replies
+LOST_ITEM_START = "ठीक आहे. कोणती वस्तू हरवली आहे? उदा. काळी बॅग, पाकीट किंवा फोन."
+FOUND_ITEM_START = "ठीक आहे. कोणती वस्तू सापडली आहे? उदा. पाकीट, बॅग किंवा मोबाईल."
+ITEM_ASK_COLOR = "वस्तूचा रंग काय आहे?"
+ITEM_ASK_LOCATION_LOST = "ही वस्तू शेवटची कुठे हरवली होती?"
+ITEM_ASK_LOCATION_FOUND = "ही वस्तू कुठे सापडली?"
+ITEM_ASK_CONTACT = "ठीक आहे. संपर्क साधण्यासाठी तुमचा मोबाईल नंबर सांगा."
+LOST_CONFIRM = "{item_type}, रंग {color}, ठिकाण {location}. ही हरवलेल्या वस्तूची माहिती बरोबर आहे का?"
+FOUND_CONFIRM = "{item_type}, रंग {color}, सापडलेलं ठिकाण {location}. ही सापडलेल्या वस्तूची माहिती बरोबर आहे का?"
+ITEM_CANCELLED = "ठीक आहे, नोंदणी रद्द केली."
+
 
 def partial_recognition_reply(topic: str) -> str:
     """Return a clarification question for a partially recognized topic."""
@@ -95,3 +110,12 @@ def missing_location_reply(name: str) -> str:
 
 def missing_confirm_reply(name: str, age, clothing: str, location: str) -> str:
     return MISSING_CONFIRM.format(name=name, age=age, clothing=clothing, location=location)
+
+
+def lost_item_confirm_reply(item_type: str, color: str, location: str) -> str:
+    return LOST_CONFIRM.format(item_type=item_type, color=color, location=location)
+
+
+def found_item_confirm_reply(item_type: str, color: str, location: str) -> str:
+    return FOUND_CONFIRM.format(item_type=item_type, color=color, location=location)
+

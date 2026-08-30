@@ -2,74 +2,92 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 from app.database.connection import SessionLocal
-from app.agent.conversation import conversation_manager
+from app.agent.conversation import ConversationManager
+from app.agent.normalizer import detect_palkhi_entity
+from app.agent.intents import PalkhiEntity
+from app.agent.response_style import PALKHI_CLARIFICATION
 from app.services.palkhi_simulator import advance_palkhi_simulator, print_palkhi_status
-from app.models.palkhi import Palkhi, RouteCheckpoint
 
 
-def test_voice_agent_multi_palkhi():
-    print("\n--- 1. Testing Voice Agent Multi-Palkhi Queries ---")
+def test_entity_normalization():
+    print("\n--- 1. Testing Palkhi Entity Normalization & Phonetics ---")
+    test_cases = [
+        ("ज्ञानेश्वर", PalkhiEntity.DNYANESHWAR),
+        ("माऊली", PalkhiEntity.DNYANESHWAR),
+        ("माउली", PalkhiEntity.DNYANESHWAR),
+        ("ज्ञानोबा", PalkhiEntity.DNYANESHWAR),
+        ("dnyaneshwar", PalkhiEntity.DNYANESHWAR),
+        ("mauli", PalkhiEntity.DNYANESHWAR),
+        ("तुकाराम", PalkhiEntity.TUKARAM),
+        ("तुकोबा", PalkhiEntity.TUKARAM),
+        ("tukaram", PalkhiEntity.TUKARAM),
+        ("tukoba", PalkhiEntity.TUKARAM),
+        ("पालखी", None),
+    ]
+
+    for text, expected in test_cases:
+        detected = detect_palkhi_entity(text)
+        status = "PASSED" if detected == expected else f"FAILED (Got {detected})"
+        print(f"Text: '{text}' => Expected: {expected} | {status}")
+        assert detected == expected, f"Failed normalization for {text}"
+
+
+def test_voice_agent_disambiguation_flow():
+    print("\n--- 2. Testing Voice Agent Disambiguation & Memory Flows ---")
     db = SessionLocal()
+    cm = ConversationManager()
     try:
-        session_id = "test_multi_palkhi_user_123"
+        # Test Case A: Generic query triggers clarification -> User selects Dnyaneshwar
+        session_a = "session_test_a"
+        reply1, intent1, followup1 = cm.process_message(session_a, "पालखी कुठे आहे?", db)
+        print(f"[Case A1] Generic Query: 'पालखी कुठे आहे?'")
+        print(f"   Reply: {reply1}")
+        assert reply1 == PALKHI_CLARIFICATION, "Should return PALKHI_CLARIFICATION"
+        assert followup1 is True, "Followup should be True"
 
-        queries = [
-            ("ज्ञानेश्वर महाराजांची पालखी कुठे आहे?", "Dnyaneshwar Location"),
-            ("तुकाराम महाराजांची पालखी कुठे आहे?", "Tukaram Location"),
-            ("पुढचा मुक्काम कुठे आहे?", "Next Halt for selected (Tukaram)"),
-            ("पुढचं रिंगण कुठे आहे?", "Next Ringan"),
-            ("आणखी किती मुक्काम आहेत?", "Remaining Route Stops"),
-            ("माऊलींची पालखी", "Switch to Dnyaneshwar"),
-            ("पुढचा मुक्काम कुठे आहे?", "Next Halt for Dnyaneshwar"),
-        ]
+        reply2, intent2, followup2 = cm.process_message(session_a, "ज्ञानोबा माऊली", db)
+        print(f"[Case A2] Selection: 'ज्ञानोबा माऊली'")
+        print(f"   Reply: {reply2}")
+        assert "ज्ञानेश्वर माऊलींची" in reply2 or "ज्ञानेश्वर" in reply2, "Should return Dnyaneshwar location"
+        assert followup2 is False, "Followup should be False"
 
-        for q, desc in queries:
-            reply, intent, followup = conversation_manager.process_message(session_id, q, db)
-            print(f"Query: [{q}] ({desc})")
-            print(f"  --> Intent: {intent}")
-            print(f"  --> Reply:  {reply}")
-            print(f"  --> Followup Required: {followup}\n")
+        # Test Case B: Generic query triggers clarification -> User selects Tukaram
+        session_b = "session_test_b"
+        reply_b1, _, _ = cm.process_message(session_b, "पालखी कुठे आहे?", db)
+        assert reply_b1 == PALKHI_CLARIFICATION
+
+        reply_b2, _, _ = cm.process_message(session_b, "तुकाराम महाराजांची", db)
+        print(f"[Case B] Selection: 'तुकाराम महाराजांची'")
+        print(f"   Reply: {reply_b2}")
+        assert "संत तुकाराम महाराजांची" in reply_b2 or "तुकाराम" in reply_b2, "Should return Tukaram location"
+
+        # Test Case C: Specific initial query (Dnyaneshwar)
+        session_c = "session_test_c"
+        reply_c, _, followup_c = cm.process_message(session_c, "ज्ञानेश्वर माऊलींची पालखी कुठे आहे?", db)
+        print(f"[Case C] Specific Query: 'ज्ञानेश्वर माऊलींची पालखी कुठे आहे?'")
+        print(f"   Reply: {reply_c}")
+        assert reply_c != PALKHI_CLARIFICATION, "Should NOT trigger clarification"
+        assert "ज्ञानेश्वर माऊलींची" in reply_c or "ज्ञानेश्वर" in reply_c
+
+        # Test Case D: Context persistence for follow-up questions
+        # Following Case C (selected_palkhi is DNYANESHWAR)
+        reply_d, _, _ = cm.process_message(session_c, "पुढचा मुक्काम?", db)
+        print(f"[Case D] Contextual Followup: 'पुढचा मुक्काम?'")
+        print(f"   Reply: {reply_d}")
+        assert "ज्ञानेश्वर माऊलींच्या" in reply_d or "ज्ञानेश्वर" in reply_d
+
+        # Test Case E: Palkhi context switching mid-conversation
+        reply_e, _, _ = cm.process_message(session_c, "तुकाराम महाराजांची पालखी कुठे आहे?", db)
+        print(f"[Case E] Context Switch: 'तुकाराम महाराजांची पालखी कुठे आहे?'")
+        print(f"   Reply: {reply_e}")
+        assert "संत तुकाराम महाराजांची" in reply_e or "तुकाराम" in reply_e, "Should switch to Tukaram"
+
+        print("\nALL DISAMBIGUATION & MEMORY TESTS PASSED SUCCESSFULLY!")
 
     finally:
         db.close()
-
-
-def test_voice_agent_palkhi_selection_prompt():
-    print("\n--- 2. Testing Voice Agent Palkhi Disambiguation Prompt ---")
-    db = SessionLocal()
-    try:
-        session_id = "test_ambiguous_user_456"
-
-        # Ambiguous query with no session context
-        q1 = "पालखी कुठे आहे?"
-        reply1, intent1, followup1 = conversation_manager.process_message(session_id, q1, db)
-        print(f"Query 1: [{q1}]")
-        print(f"  --> Reply:  {reply1}")
-        print(f"  --> Followup Required: {followup1}\n")
-
-        # User selects Dnyaneshwar
-        q2 = "ज्ञानोबा माऊली"
-        reply2, intent2, followup2 = conversation_manager.process_message(session_id, q2, db)
-        print(f"Query 2: [{q2}]")
-        print(f"  --> Reply:  {reply2}")
-        print(f"  --> Followup Required: {followup2}\n")
-
-    finally:
-        db.close()
-
-
-def test_simulator():
-    print("\n--- 3. Testing Palkhi GPS Simulator ---")
-    print_palkhi_status()
-
-    print("[SIMULATING] Moving Dnyaneshwar Palkhi to next checkpoint...")
-    advance_palkhi_simulator(palkhi_query="dnyaneshwar", next_step=True)
-
-    print("[SIMULATING] Resetting Dnyaneshwar Palkhi back to Saswad...")
-    advance_palkhi_simulator(palkhi_query="dnyaneshwar", set_location="Saswad")
 
 
 if __name__ == "__main__":
-    test_voice_agent_multi_palkhi()
-    test_voice_agent_palkhi_selection_prompt()
-    test_simulator()
+    test_entity_normalization()
+    test_voice_agent_disambiguation_flow()

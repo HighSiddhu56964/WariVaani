@@ -58,16 +58,29 @@ DEMO_CHECKPOINTS = {
 }
 
 
-def get_palkhi_location_tool(db: Session, palkhi_id: Optional[int] = None) -> str:
-    """Fetch current Palkhi location from database and return Marathi response."""
+from app.agent.intents import PalkhiEntity
+
+
+def _get_palkhi_record(
+    db: Session, palkhi_id: Optional[int] = None, palkhi_entity: Optional[PalkhiEntity] = None
+) -> Optional[Palkhi]:
     if palkhi_id:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.id == palkhi_id)).first()
-    else:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Sant Dnyaneshwar%"))).first()
+        p = db.scalars(select(Palkhi).where(Palkhi.id == palkhi_id)).first()
+        if p:
+            return p
+    if palkhi_entity == PalkhiEntity.TUKARAM:
+        return db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Tukaram%"))).first()
+    elif palkhi_entity == PalkhiEntity.DNYANESHWAR:
+        return db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Dnyaneshwar%"))).first()
 
-    if not palkhi:
-        palkhi = db.scalars(select(Palkhi)).first()
+    return db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Dnyaneshwar%"))).first() or db.scalars(select(Palkhi)).first()
 
+
+def get_palkhi_location_tool(
+    db: Session, palkhi_id: Optional[int] = None, palkhi_entity: Optional[PalkhiEntity] = None
+) -> str:
+    """Fetch current Palkhi location from database and return Marathi response."""
+    palkhi = _get_palkhi_record(db, palkhi_id, palkhi_entity)
     if not palkhi:
         return "माफ करा, पालखीच्या स्थानाची माहिती सध्या उपलब्ध नाही."
 
@@ -82,29 +95,23 @@ def get_palkhi_location_tool(db: Session, palkhi_id: Optional[int] = None) -> st
             .order_by(RouteCheckpoint.sequence_number)
         ).first()
 
+    is_tukaram = "Tukaram" in palkhi.name
+    name_prefix = "संत तुकाराम महाराजांची" if is_tukaram else "ज्ञानेश्वर माऊलींची"
+
     if not current_cp:
-        return f"{palkhi.saint_name} पालखीचे स्थान उपलब्ध नाही."
+        return f"{name_prefix} पालखीचे स्थान उपलब्ध नाही."
 
-    next_info = (
-        f" पुढचा नियोजित थांबा {current_cp.next_checkpoint} आहे."
-        if current_cp.next_checkpoint
-        else " पालखी पंढरपूर येथे पोहोचली आहे."
-    )
-
-    prefix = "तुकोबांची" if "Tukaram" in palkhi.name else "माऊलींची"
-    return f"{prefix} पालखी सध्या {current_cp.location_name}जवळ आहे.{next_info}"
-
-
-def get_next_halt_tool(db: Session, palkhi_id: Optional[int] = None) -> str:
-    """Fetch next planned halt/checkpoint for Palkhi from database and return Marathi response."""
-    if palkhi_id:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.id == palkhi_id)).first()
+    if current_cp.next_checkpoint:
+        return f"{name_prefix} पालखी सध्या {current_cp.location_name} येथे आहे. पुढचा मुक्काम {current_cp.next_checkpoint} आहे."
     else:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Sant Dnyaneshwar%"))).first()
+        return f"{name_prefix} पालखी पंढरपूर येथे पोहोचली आहे."
 
-    if not palkhi:
-        palkhi = db.scalars(select(Palkhi)).first()
 
+def get_next_halt_tool(
+    db: Session, palkhi_id: Optional[int] = None, palkhi_entity: Optional[PalkhiEntity] = None
+) -> str:
+    """Fetch next planned halt/checkpoint for Palkhi from database and return Marathi response."""
+    palkhi = _get_palkhi_record(db, palkhi_id, palkhi_entity)
     if not palkhi:
         return "माफ करा, पालखीच्या पुढच्या मुक्कामाची माहिती सध्या उपलब्ध नाही."
 
@@ -119,23 +126,20 @@ def get_next_halt_tool(db: Session, palkhi_id: Optional[int] = None) -> str:
             .order_by(RouteCheckpoint.sequence_number)
         ).first()
 
+    is_tukaram = "Tukaram" in palkhi.name
+    name_prefix = "संत तुकाराम महाराजांच्या" if is_tukaram else "ज्ञानेश्वर माऊलींच्या"
+
     if not current_cp or not current_cp.next_checkpoint:
-        return f"{palkhi.saint_name} पालखी पंढरपूर येथे पोहोचली आहे."
+        return f"{name_prefix} पालखी पंढरपूर येथे पोहोचली आहे."
 
-    prefix = "तुकोबांच्या" if "Tukaram" in palkhi.name else "माऊलींच्या"
-    return f"{prefix} पालखीचा पुढचा नियोजित मुक्काम {current_cp.next_checkpoint} आहे."
+    return f"{name_prefix} पालखीचा पुढचा नियोजित मुक्काम {current_cp.next_checkpoint} आहे."
 
 
-def get_next_ringan_tool(db: Session, palkhi_id: Optional[int] = None) -> str:
+def get_next_ringan_tool(
+    db: Session, palkhi_id: Optional[int] = None, palkhi_entity: Optional[PalkhiEntity] = None
+) -> str:
     """Fetch next Ringan location for Palkhi from database and return Marathi response."""
-    if palkhi_id:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.id == palkhi_id)).first()
-    else:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Sant Dnyaneshwar%"))).first()
-
-    if not palkhi:
-        palkhi = db.scalars(select(Palkhi)).first()
-
+    palkhi = _get_palkhi_record(db, palkhi_id, palkhi_entity)
     if not palkhi:
         return "माफ करा, रिंगणाची माहिती सध्या उपलब्ध नाही."
 
@@ -165,21 +169,21 @@ def get_next_ringan_tool(db: Session, palkhi_id: Optional[int] = None) -> str:
             .order_by(RouteCheckpoint.sequence_number)
         ).first()
 
+    is_tukaram = "Tukaram" in palkhi.name
+    name_prefix = "संत तुकाराम महाराजांच्या पालखीचे" if is_tukaram else "ज्ञानेश्वर माऊलींचे"
+
     if not ringan_cp:
-        return f"{palkhi.saint_name} पालखीच्या मार्गावर पुढचे रिंगण उपलब्ध नाही."
+        return f"{name_prefix} पुढचे रिंगण उपलब्ध नाही."
 
-    prefix = "तुकोबांच्या" if "Tukaram" in palkhi.name else "ज्ञानोबा माऊलींचे"
     notes_str = f" ({ringan_cp.notes})" if ringan_cp.notes else ""
-    return f"{prefix} पुढचे रिंगण {ringan_cp.location_name}{notes_str} येथे होणार आहे."
+    return f"{name_prefix} पुढचे रिंगण {ringan_cp.location_name}{notes_str} येथे होणार आहे."
 
 
-def get_palkhi_route_summary_tool(db: Session, palkhi_id: Optional[int] = None) -> str:
+def get_palkhi_route_summary_tool(
+    db: Session, palkhi_id: Optional[int] = None, palkhi_entity: Optional[PalkhiEntity] = None
+) -> str:
     """Fetch remaining stops count for Palkhi before Pandharpur."""
-    if palkhi_id:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.id == palkhi_id)).first()
-    else:
-        palkhi = db.scalars(select(Palkhi).where(Palkhi.name.ilike("%Sant Dnyaneshwar%"))).first()
-
+    palkhi = _get_palkhi_record(db, palkhi_id, palkhi_entity)
     if not palkhi:
         return "माफ करा, पालखीच्या मार्गाची माहिती उपलब्ध नाही."
 
@@ -199,12 +203,15 @@ def get_palkhi_route_summary_tool(db: Session, palkhi_id: Optional[int] = None) 
     ).all()
 
     count = len(remaining_cps)
-    prefix = "तुकोबांच्या" if "Tukaram" in palkhi.name else "माऊलींच्या"
+    is_tukaram = "Tukaram" in palkhi.name
+    name_prefix = "संत तुकाराम महाराजांच्या" if is_tukaram else "ज्ञानेश्वर माऊलींच्या"
+
     if count == 0:
-        return f"{prefix} पालखी पंढरपूर येथे पोहोचली आहे."
+        return f"{name_prefix} पालखी पंढरपूर येथे पोहोचली आहे."
 
     next_three = ", ".join([cp.location_name for cp in remaining_cps[:3]])
-    return f"{prefix} पालखीचे पंढरपूरला पोहोचण्यापूर्वी अजून {count} मुक्काम आहेत. पुढचे मुख्य थांबे: {next_three}."
+    return f"{name_prefix} पालखीचे पंढरपूरला पोहोचण्यापूर्वी अजून {count} मुक्काम आहेत. पुढचे मुख्य थांबे: {next_three}."
+
 
 
 def resolve_location_name(text: str) -> Optional[Tuple[float, float]]:
@@ -281,6 +288,7 @@ def create_missing_person_report_tool(db: Session, data: dict) -> str:
         last_seen_location=data.get("last_seen_location", "वारी मार्ग"),
         last_seen_time=datetime.now(timezone.utc),
         contact=data.get("contact", "माहिती नाही"),
+        source="VOICE_CALL",
         status="OPEN"
     )
 
@@ -294,11 +302,57 @@ def create_missing_person_report_tool(db: Session, data: dict) -> str:
         "name": mp.name,
         "age": mp.age,
         "clothing": mp.clothing,
+        "description": mp.description,
         "last_seen_location": mp.last_seen_location,
         "contact": mp.contact,
+        "source": mp.source,
         "status": mp.status,
         "created_at": mp.created_at.isoformat()
     }
     ws_manager.broadcast_sync("MISSING_PERSON_CREATED", event_data)
 
     return f"नोंद झाली आहे. तुमचा तिकीट क्रमांक {mp.ticket_id} आहे."
+
+
+def create_lost_found_report_tool(db: Session, data: dict, report_type: str = "LOST") -> str:
+    """Save lost or found item report to database and broadcast event."""
+    from app.models.lost_item import LostItemReport
+    from app.api.routes.lost_found import generate_lost_found_ticket_id
+
+    rtype = report_type.upper()
+    ticket_id = generate_lost_found_ticket_id(db, rtype)
+
+    item = LostItemReport(
+        ticket_id=ticket_id,
+        report_type=rtype,
+        item_type=data.get("item_type", "वस्तू"),
+        color=data.get("color", "माहिती नाही"),
+        description=data.get("description", f"Voice call report ({rtype})"),
+        location=data.get("location", "वारी मार्ग"),
+        contact_number=data.get("contact", "माहिती नाही"),
+        source="VOICE_CALL",
+        status="OPEN"
+    )
+
+    db.add(item)
+    db.commit()
+    db.refresh(item)
+
+    # Broadcast LOST_FOUND_CREATED event over WebSocket
+    event_data = {
+        "ticket_id": item.ticket_id,
+        "report_type": item.report_type,
+        "item_type": item.item_type,
+        "color": item.color,
+        "description": item.description,
+        "location": item.location,
+        "contact_number": item.contact_number,
+        "source": item.source,
+        "status": item.status,
+        "created_at": item.created_at.isoformat()
+    }
+    ws_manager.broadcast_sync("LOST_FOUND_CREATED", event_data)
+
+    action_term = "हरवलेल्या" if rtype == "LOST" else "सापडलेल्या"
+    return f"{action_term} वस्तूची नोंद झाली आहे. तुमचा तिकीट क्रमांक {item.ticket_id} आहे."
+

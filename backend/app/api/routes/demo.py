@@ -66,3 +66,21 @@ def get_demo_state(db: Session = Depends(get_db)):
         "medical_facilities": medical_count,
         "last_updated": datetime.now(timezone.utc).isoformat()
     }
+
+
+@router.post("/reset")
+def post_reset_demo():
+    """
+    Cleanly reset database state and re-seed clean default demo data.
+    """
+    from app.demo import reset_demo
+    return reset_demo()
+
+
+@router.get("/verify")
+def get_verify_demo():
+    """
+    Verify and return all currently registered missing persons.
+    """
+    from app.demo import verify_missing_persons
+    return verify_missing_persons()

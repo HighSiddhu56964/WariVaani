@@ -15,10 +15,18 @@ router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 @router.get("/summary")
 def get_dashboard_summary(db: Session = Depends(get_db)):
     """
-    Authority dashboard summary metrics for Person 2's admin UI, supporting both Palkhis.
+    Authority dashboard summary metrics for admin UI, supporting both Palkhis.
     """
     open_missing_count = db.scalars(
         select(func.count(MissingPerson.id)).where(MissingPerson.status == "OPEN")
+    ).first() or 0
+
+    under_review_missing_count = db.scalars(
+        select(func.count(MissingPerson.id)).where(MissingPerson.status == "UNDER_REVIEW")
+    ).first() or 0
+
+    resolved_missing_count = db.scalars(
+        select(func.count(MissingPerson.id)).where(MissingPerson.status == "RESOLVED")
     ).first() or 0
 
     medical_count = db.scalars(
@@ -50,6 +58,8 @@ def get_dashboard_summary(db: Session = Depends(get_db)):
 
     return {
         "open_missing_persons": open_missing_count,
+        "under_review_missing_persons": under_review_missing_count,
+        "resolved_missing_persons": resolved_missing_count,
         "medical_facilities": medical_count,
         "palkhi_current_location": palkhi_summaries[0]["current_location"] if palkhi_summaries else "Unknown",
         "palkhis": palkhi_summaries,
