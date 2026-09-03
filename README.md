@@ -4,7 +4,7 @@ A grounded Marathi voice helper for the Pandharpur Wari pilgrimage, enabling nat
 
 ## 🌟 Overview
 
-WariVaani is a full-stack voice application built with:
+WariVaani is a full-stack voice application built with
 - **Backend (Python)**: AI4Bharat IndicConformer for Marathi speech recognition, deterministic tools for facts & reporting, Sarvam Bulbul v3 for speech synthesis
 - **Frontend (TypeScript/React)**: Next.js-based web interface with map visualization for tracking Palkhi locations and managing pilgrim information
 - **Database (PostgreSQL)**: Grounded data store for Wari routes, locations, and pilgrim records
